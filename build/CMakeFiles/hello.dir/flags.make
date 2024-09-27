@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/ethan/Documents/GitHub/Dough-Engine/include/dough
+CXX_INCLUDES = -I/home/ethan/Documents/GitHub/Dough-Engine/include
 
 CXX_FLAGS = 
 
