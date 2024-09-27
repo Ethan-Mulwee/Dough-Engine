@@ -9,7 +9,6 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/ethan/Documents/GitHub/Dough-Engine/main.cpp" "CMakeFiles/hello.dir/main.cpp.o" "gcc" "CMakeFiles/hello.dir/main.cpp.o.d"
-  "/home/ethan/Documents/GitHub/Dough-Engine/src/test.cpp" "CMakeFiles/hello.dir/src/test.cpp.o" "gcc" "CMakeFiles/hello.dir/src/test.cpp.o.d"
   )
 
 # Targets to which this target links.

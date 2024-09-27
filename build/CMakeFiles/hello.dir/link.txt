@@ -1,1 +1,1 @@
-/usr/bin/c++ CMakeFiles/hello.dir/main.cpp.o CMakeFiles/hello.dir/src/test.cpp.o -o hello 
+/usr/bin/c++ CMakeFiles/hello.dir/main.cpp.o -o hello 
