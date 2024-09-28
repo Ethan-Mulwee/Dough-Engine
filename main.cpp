@@ -1,10 +1,10 @@
 #include <iostream>
-#include "dough/core.hpp"
+#include "dough/particle.hpp"
 
-
+using namespace dough;
 int main() {
-    dough::Vector3 vec1{4,5,6};
-    dough::Vector3 vec2{1,2,3};
-    vec1 += vec2;
-    std::cout << vec1.x << std::endl;
+    Particle particle = Particle(Vector3(1,1,1), Vector3(2,5,0), 0.999, 3);
+    std::cout << particle.getPosition().x << std::endl;
+    particle.integrate(1);
+    std::cout << particle.getPosition().x << std::endl;
 }

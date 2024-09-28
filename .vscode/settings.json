@@ -1,3 +1,6 @@
 {
-    "makefile.makefilePath": "/home/ethan/Documents/GitHub/Dough-Engine/build"
+    "makefile.makefilePath": "/home/ethan/Documents/GitHub/Dough-Engine/build",
+    "files.associations": {
+        "ostream": "cpp"
+    }
 }
