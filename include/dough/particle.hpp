@@ -19,8 +19,8 @@ namespace dough {
         void setVelocity(Vector3 _velocity) {
             velocity = _velocity;
         }
-        void setAcceleration(Vector3 _acceleration) {
-            acceleration = _acceleration;
+        void addForce(Vector3 _force) {
+            acceleration += _force*inverseMass;
         }
         void setDamping(real _damping) {
             damping = _damping;
@@ -32,11 +32,20 @@ namespace dough {
         Vector3 getPosition() {
             return position;
         }
-        Vector3 getVeloicty() {
+        Vector3 getVelocity() {
             return velocity;
         }
+        real getMass() {
+            return (real)1/inverseMass;
+        }
+        Vector3 getAccumulatedForce() {
+            return acceleration*(real)(1/inverseMass);
+        }
+        Vector3 getAcceleration() {
+            return acceleration;
+        }
 
-        void clearAcceleration() {
+        void clearAccumulator() {
             acceleration = Vector3(0,0,0);
         }
 

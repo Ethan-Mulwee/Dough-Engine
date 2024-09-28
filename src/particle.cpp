@@ -13,4 +13,6 @@ void Particle::integrate(real time)
     velocity += (acceleration*time);
 
     velocity *= real_pow(damping, time);
+
+    clearAccumulator();
 }
