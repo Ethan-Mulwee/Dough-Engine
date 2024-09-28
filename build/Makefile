@@ -117,48 +117,48 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named main
+# Target rules for targets named Main-DEMO
 
 # Build rule for target.
-main: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 main
-.PHONY : main
+Main-DEMO: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Main-DEMO
+.PHONY : Main-DEMO
 
 # fast build rule for target.
-main/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
-.PHONY : main/fast
+Main-DEMO/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Main-DEMO.dir/build.make CMakeFiles/Main-DEMO.dir/build
+.PHONY : Main-DEMO/fast
 
-main.o: main.cpp.o
-.PHONY : main.o
+demos/maindemo.o: demos/maindemo.cpp.o
+.PHONY : demos/maindemo.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.o
-.PHONY : main.cpp.o
+demos/maindemo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Main-DEMO.dir/build.make CMakeFiles/Main-DEMO.dir/demos/maindemo.cpp.o
+.PHONY : demos/maindemo.cpp.o
 
-main.i: main.cpp.i
-.PHONY : main.i
+demos/maindemo.i: demos/maindemo.cpp.i
+.PHONY : demos/maindemo.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.i
-.PHONY : main.cpp.i
+demos/maindemo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Main-DEMO.dir/build.make CMakeFiles/Main-DEMO.dir/demos/maindemo.cpp.i
+.PHONY : demos/maindemo.cpp.i
 
-main.s: main.cpp.s
-.PHONY : main.s
+demos/maindemo.s: demos/maindemo.cpp.s
+.PHONY : demos/maindemo.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.s
-.PHONY : main.cpp.s
+demos/maindemo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Main-DEMO.dir/build.make CMakeFiles/Main-DEMO.dir/demos/maindemo.cpp.s
+.PHONY : demos/maindemo.cpp.s
 
 src/particle.o: src/particle.cpp.o
 .PHONY : src/particle.o
 
 # target to build an object file
 src/particle.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/particle.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Main-DEMO.dir/build.make CMakeFiles/Main-DEMO.dir/src/particle.cpp.o
 .PHONY : src/particle.cpp.o
 
 src/particle.i: src/particle.cpp.i
@@ -166,7 +166,7 @@ src/particle.i: src/particle.cpp.i
 
 # target to preprocess a source file
 src/particle.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/particle.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Main-DEMO.dir/build.make CMakeFiles/Main-DEMO.dir/src/particle.cpp.i
 .PHONY : src/particle.cpp.i
 
 src/particle.s: src/particle.cpp.s
@@ -174,7 +174,7 @@ src/particle.s: src/particle.cpp.s
 
 # target to generate assembly for a file
 src/particle.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/particle.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Main-DEMO.dir/build.make CMakeFiles/Main-DEMO.dir/src/particle.cpp.s
 .PHONY : src/particle.cpp.s
 
 # Help Target
@@ -185,10 +185,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... main"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... Main-DEMO"
+	@echo "... demos/maindemo.o"
+	@echo "... demos/maindemo.i"
+	@echo "... demos/maindemo.s"
 	@echo "... src/particle.o"
 	@echo "... src/particle.i"
 	@echo "... src/particle.s"

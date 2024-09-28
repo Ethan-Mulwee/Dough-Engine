@@ -30,11 +30,13 @@ namespace dough {
         Vector3 operator-(const Vector3 vector) {
             return Vector3(x-vector.x, y-vector.y, z-vector.z);
         }
-        
         void invert() {
             x = -x;
             y = -y;
             z = -z;
+        }
+        void clear() {
+            x = 0; y = 0; z = 0;
         }
         real magnitude() const {
             return real_sqrt(x*x+y*y+z*z);

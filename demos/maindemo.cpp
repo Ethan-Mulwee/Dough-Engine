@@ -45,12 +45,12 @@ int main() {
             BeginMode3D(camera);
 
             ClearBackground(WHITE);
-            DrawCube(position, 1.0, 1.0, 1.0, RED);
-            DrawCubeWires(position, 1.0, 1.0, 1.0, MAROON);
+            DrawSphere(position, 0.5, RED);
             DrawGrid(10, 1);
             Ray ray1 = {Convert(particle.getPosition()), Convert(particle.getVelocity())};
             DrawLine3D(Convert(particle.getPosition()), Convert(particle.getVelocity()+particle.getPosition()), RED);
             DrawLine3D(Convert(particle.getPosition()), Convert(particle.getAccumulatedForce()+particle.getPosition()), BLACK);
+            DrawSphere(Vector3{0,0,0}, 0.2, BLACK);
             EndMode3D();
             DebugDisplay(particle);
         EndDrawing();

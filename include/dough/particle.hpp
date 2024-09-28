@@ -8,6 +8,7 @@ namespace dough {
         Vector3 acceleration; 
         real damping;
         real inverseMass;
+        Vector3 forceAccum;
         public:
         Particle(Vector3 position, Vector3 velocity, real damping, real Mass)
         : position(position), velocity(velocity), damping(damping) {
@@ -20,7 +21,7 @@ namespace dough {
             velocity = _velocity;
         }
         void addForce(Vector3 _force) {
-            acceleration += _force*inverseMass;
+            forceAccum += _force;
         }
         void setDamping(real _damping) {
             damping = _damping;
@@ -39,14 +40,14 @@ namespace dough {
             return (real)1/inverseMass;
         }
         Vector3 getAccumulatedForce() {
-            return acceleration*(real)(1/inverseMass);
+            return forceAccum;
         }
         Vector3 getAcceleration() {
             return acceleration;
         }
 
         void clearAccumulator() {
-            acceleration = Vector3(0,0,0);
+            forceAccum.clear();
         }
 
         void integrate(real time);

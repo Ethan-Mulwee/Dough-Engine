@@ -10,7 +10,9 @@ void Particle::integrate(real time)
     assert(time>0);
 
     position += (velocity*time);
-    velocity += (acceleration*time);
+    Vector3 resultingAcc = acceleration;
+    resultingAcc += (forceAccum*inverseMass);
+    velocity += (resultingAcc*time);
 
     velocity *= real_pow(damping, time);
 
