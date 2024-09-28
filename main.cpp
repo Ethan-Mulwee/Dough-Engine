@@ -1,11 +1,24 @@
 #include <iostream>
 #include <raylib.h>
+#include <string>
 #include "dough/particle.hpp"
 
 Camera camera = {0};
 
 Vector3 Convert(dough::Vector3 Dvec) {
     return Vector3{Dvec.x, Dvec.y, Dvec.z};
+}
+
+void DebugDisplay(dough::Particle particle) {
+    dough::Vector3 position = particle.getPosition();
+    dough::Vector3 velocity = particle.getVelocity();
+    dough::Vector3 force = particle.getAccumulatedForce();
+    std::string str1 =  "position: " + std::to_string(position.x) +", "+ std::to_string(position.y) +", "+ std::to_string(position.z);
+    DrawText(str1.c_str(), 10, 10, 10, BLACK);
+    std::string str2 =  "velocity: " + std::to_string(velocity.x) +", "+ std::to_string(velocity.y) +", "+ std::to_string(velocity.z);
+    DrawText(str2.c_str(), 10, 20, 10, BLACK);
+    std::string str3 =  "force: " + std::to_string(force.x) +", "+ std::to_string(force.y) +", "+ std::to_string(force.z);
+    DrawText(str3.c_str(), 10, 30, 10, BLACK);
 }
 
 int main() {
@@ -36,10 +49,10 @@ int main() {
             DrawCubeWires(position, 1.0, 1.0, 1.0, MAROON);
             DrawGrid(10, 1);
             Ray ray1 = {Convert(particle.getPosition()), Convert(particle.getVelocity())};
-            Ray ray2 = {Convert(particle.getPosition()), Convert(particle.getAccumulatedForce())};
-            DrawRay(ray1, RED);
-            DrawRay(ray2, BLACK);
+            DrawLine3D(Convert(particle.getPosition()), Convert(particle.getVelocity()+particle.getPosition()), RED);
+            DrawLine3D(Convert(particle.getPosition()), Convert(particle.getAccumulatedForce()+particle.getPosition()), BLACK);
             EndMode3D();
+            DebugDisplay(particle);
         EndDrawing();
         particle.integrate((float)1/60);
     }
