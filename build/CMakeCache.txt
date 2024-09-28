@@ -227,6 +227,9 @@ main_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 main_SOURCE_DIR:STATIC=/home/ethan/Documents/GitHub/Dough-Engine
 
+//The directory containing a CMake configuration file for raylib.
+raylib_DIR:PATH=raylib_DIR-NOTFOUND
+
 
 ########################
 # INTERNAL cache entries
