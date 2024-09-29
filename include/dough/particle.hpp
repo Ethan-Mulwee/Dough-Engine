@@ -20,6 +20,9 @@ namespace dough {
         void setVelocity(Vector3 _velocity) {
             velocity = _velocity;
         }
+        void setAcceleration(Vector3 _acceleration) {
+            acceleration = _acceleration;
+        }
         void addForce(Vector3 _force) {
             forceAccum += _force;
         }

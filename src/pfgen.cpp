@@ -10,7 +10,7 @@ void ParticleForceRegistry::add(Particle *particle, ParticleForceGenerator *fg)
 }
 void ParticleForceRegistry::remove(Particle* particle, ParticleForceGenerator* fg)
 {
-    
+
 }
 void ParticleForceRegistry::clear()
 {
@@ -25,6 +25,8 @@ void ParticleForceRegistry::updateForces(real time)
 }
 void ParticleGravity::updateForce(Particle* particle, real time)
 {
+    Vector3 force;
+    force = particle->getVelocity();
     if (!particle->hasFiniteMass()) return;
     particle->addForce(gravity*particle->getMass());
 }
