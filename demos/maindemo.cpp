@@ -26,53 +26,46 @@ void CameraControl() {
 
 }
 
-World world = World(0.005, -9.81);
+World world = World(0.0025, -9.81);
 
 int main() {
 
     SetTargetFPS(200);
     InitWindow(1920, 1080, "Phyiscs Demo");
 
-    camera.position = (Vector3){ 10.0f, 10.0f, 10.0f };
+    camera.position = (Vector3){ 12.0f, 12.0f, 12.0f };
     camera.target = (Vector3){ 0.0f, 0.0f, 0.0f };
     camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };
     camera.fovy = 60.0f;
     camera.projection = CAMERA_PERSPECTIVE;
 
     while(!WindowShouldClose()) {
-        UpdateCamera(&camera, CAMERA_PERSPECTIVE);
-        //forceGenRegist.updateForces((float)1/60);
-
-        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
-            world.particles[0].addForce((dough::Vector3(0,0,0)-world.particles[0].getPosition())*world.particles[0].getMass()*5);
-        }
-        if (IsKeyDown(KEY_D)) {
-            world.particles[1].setPosition(world.particles[1].getPosition() + dough::Vector3(0.02,0,0));
-        }
-        if (IsKeyDown(KEY_A)) {
-            world.particles[1].setPosition(world.particles[1].getPosition() + dough::Vector3(-0.02,0,0));
-        }
-        if (IsKeyDown(KEY_W)) {
-            world.particles[1].setPosition(world.particles[1].getPosition() + dough::Vector3(0,0,-0.02));
-        }
-        if (IsKeyDown(KEY_S)) {
-            world.particles[1].setPosition(world.particles[1].getPosition() + dough::Vector3(0,0,0.02));
-        }
-        Vector3 position = Vector3{world.particles[0].getPosition().x, world.particles[0].getPosition().y, world.particles[0].getPosition().z};
+        UpdateCamera(&camera, CAMERA_ORBITAL);
         BeginDrawing();
             BeginMode3D(camera);
 
-            ClearBackground(WHITE);
-            DrawSphere(position, 0.5, RED);
-            DrawSphere(Convert(world.particles[1].getPosition()), 0.5, BLUE);
-            DrawSphere(Convert(world.particles[2].getPosition()), 0.5, PURPLE);
-            DrawGrid(1000, 1);
-            //DrawLine3D(Convert(world.particles[0].getPosition()), Convert(world.particles[0].getVelocity()+world.particles[0].getPosition()), RED);
-            //DrawLine3D(Convert(world.particles[0].getPosition()), Convert(world.particles[1].getPosition()), BLACK);
-            //DrawLine3D(Convert(world.a.getPosition()), Convert(world.c.getPosition()), BLACK);
-            DrawSphere(Vector3{0,0,0}, 0.2, BLACK);
+            ClearBackground(Color{35, 35, 35, 255});
+            int count = 0;
+            auto i = world.particles.begin();
+            for (; i != world.particles.end(); i++) {
+                Color color;
+                switch (count % 4)
+                {
+                    case 0:
+                    color = RED; break;
+                    case 1:
+                    color = BLUE; break;
+                    case 2:
+                    color = PURPLE; break;
+                    case 3:
+                    color = ORANGE; break;
+                }
+                DrawSphere(Convert(i->getPosition()), (i->getMass())/10, color);
+                count++;
+            }
+            DrawGrid(10, 2);
+            DrawSphere(Vector3{0,0,0}, 0.1, BLACK);
             EndMode3D();
-            DebugDisplay(world.particles[0]);
         EndDrawing();
         world.step();
     }

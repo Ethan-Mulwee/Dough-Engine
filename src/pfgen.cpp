@@ -85,7 +85,7 @@ void ParticlesGravity::updateForce(Particle *particle, real time){
     for (; i != particles->end(); i++) {
         Vector3 force = (i->getPosition() - particle->getPosition());
         real distance = force.magnitude();
-        if (distance == 0) continue;
+        if (distance <= 0.2) continue;
         distance *= distance;
         force.normalize();
         force *= (particle->getMass()*i->getMass())/distance;
