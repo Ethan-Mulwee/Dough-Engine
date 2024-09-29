@@ -44,33 +44,35 @@ int main() {
         //forceGenRegist.updateForces((float)1/60);
 
         if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
-            world.a.addForce((dough::Vector3(0,0,0)-world.a.getPosition())*world.a.getMass()*5);
+            world.particles[0].addForce((dough::Vector3(0,0,0)-world.particles[0].getPosition())*world.particles[0].getMass()*5);
         }
         if (IsKeyDown(KEY_D)) {
-            world.b.setPosition(world.b.getPosition() + dough::Vector3(0.02,0,0));
+            world.particles[1].setPosition(world.particles[1].getPosition() + dough::Vector3(0.02,0,0));
         }
         if (IsKeyDown(KEY_A)) {
-            world.b.setPosition(world.b.getPosition() + dough::Vector3(-0.02,0,0));
+            world.particles[1].setPosition(world.particles[1].getPosition() + dough::Vector3(-0.02,0,0));
         }
         if (IsKeyDown(KEY_W)) {
-            world.b.setPosition(world.b.getPosition() + dough::Vector3(0,0,-0.02));
+            world.particles[1].setPosition(world.particles[1].getPosition() + dough::Vector3(0,0,-0.02));
         }
         if (IsKeyDown(KEY_S)) {
-            world.b.setPosition(world.b.getPosition() + dough::Vector3(0,0,0.02));
+            world.particles[1].setPosition(world.particles[1].getPosition() + dough::Vector3(0,0,0.02));
         }
-        Vector3 position = Vector3{world.a.getPosition().x, world.a.getPosition().y, world.a.getPosition().z};
+        Vector3 position = Vector3{world.particles[0].getPosition().x, world.particles[0].getPosition().y, world.particles[0].getPosition().z};
         BeginDrawing();
             BeginMode3D(camera);
 
             ClearBackground(WHITE);
             DrawSphere(position, 0.5, RED);
-            DrawSphere(Convert(world.b.getPosition()), 0.5, BLUE);
+            DrawSphere(Convert(world.particles[1].getPosition()), 0.5, BLUE);
+            DrawSphere(Convert(world.particles[2].getPosition()), 0.5, PURPLE);
             DrawGrid(1000, 1);
-            DrawLine3D(Convert(world.a.getPosition()), Convert(world.a.getVelocity()+world.a.getPosition()), RED);
-            DrawLine3D(Convert(world.a.getPosition()), Convert(world.b.getPosition()), BLACK);
+            //DrawLine3D(Convert(world.particles[0].getPosition()), Convert(world.particles[0].getVelocity()+world.particles[0].getPosition()), RED);
+            //DrawLine3D(Convert(world.particles[0].getPosition()), Convert(world.particles[1].getPosition()), BLACK);
+            //DrawLine3D(Convert(world.a.getPosition()), Convert(world.c.getPosition()), BLACK);
             DrawSphere(Vector3{0,0,0}, 0.2, BLACK);
             EndMode3D();
-            DebugDisplay(world.a);
+            DebugDisplay(world.particles[0]);
         EndDrawing();
         world.step();
     }

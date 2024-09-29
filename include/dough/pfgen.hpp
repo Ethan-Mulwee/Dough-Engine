@@ -28,6 +28,7 @@ namespace dough {
     };
 
     class ParticleGravity : public ParticleForceGenerator {
+        protected:
         Vector3 gravity;
         public:
         ParticleGravity(const Vector3& gravity)
@@ -62,6 +63,14 @@ namespace dough {
         real restLength;
         public:
         ParticleBungee(Particle* other, real springConstant, real restLength);
+        virtual void updateForce(Particle* particle, real time);
+    };
+
+    class ParticlesGravity : public ParticleForceGenerator {
+        protected:
+        std::vector<Particle>* particles;
+        public:
+        ParticlesGravity(std::vector<Particle>* particles);
         virtual void updateForce(Particle* particle, real time);
     };
 }

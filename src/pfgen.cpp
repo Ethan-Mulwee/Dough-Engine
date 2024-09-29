@@ -76,3 +76,19 @@ void ParticleBungee::updateForce(Particle *particle, real time){
     force *= magnitude;
     particle->addForce(force);
 }
+
+ParticlesGravity::ParticlesGravity(std::vector<Particle> *particles) 
+: particles(particles) {};
+
+void ParticlesGravity::updateForce(Particle *particle, real time){
+    auto i = particles->begin();
+    for (; i != particles->end(); i++) {
+        Vector3 force = (i->getPosition() - particle->getPosition());
+        real distance = force.magnitude();
+        if (distance == 0) continue;
+        distance *= distance;
+        force.normalize();
+        force *= (particle->getMass()*i->getMass())/distance;
+        particle->addForce(force);
+    }
+}

@@ -6,7 +6,7 @@ namespace dough {
         Vector3 position;
         Vector3 velocity;
         Vector3 acceleration; 
-        real damping;
+        real damping = 1;
         real inverseMass;
         Vector3 forceAccum;
         public:

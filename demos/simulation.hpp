@@ -1,5 +1,5 @@
 #include "dough/pfgen.hpp"
-
+#include <vector>
 
 
 class World {
@@ -7,7 +7,7 @@ class World {
     dough::ParticleForceRegistry registry;
     dough::real timeStep;
     public:
-    dough::Particle a, b;
+    std::vector<dough::Particle> particles;
     World(dough::real _timeStep, dough::real _Gravity);
 
     void step();
