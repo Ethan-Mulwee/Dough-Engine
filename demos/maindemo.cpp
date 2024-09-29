@@ -40,11 +40,14 @@ int main() {
     camera.projection = CAMERA_PERSPECTIVE;
 
     while(!WindowShouldClose()) {
+        Ray ray = GetScreenToWorldRay(GetMousePosition(), camera);
+        RayCollision collision = GetRayCollisionQuad(ray, Vector3{-1000,0,-1000}, Vector3{-1000,0,1000}, Vector3{1000,0,1000}, Vector3{1000,0,-1000});
         UpdateCamera(&camera, CAMERA_ORBITAL);
         BeginDrawing();
-            BeginMode3D(camera);
-
             ClearBackground(Color{35, 35, 35, 255});
+            DrawText(str.c_str(), 10, 10, 10, WHITE);
+            BeginMode3D(camera);
+            DrawSphere(collision.point, 0.4, WHITE);
             int count = 0;
             auto i = world.particles.begin();
             for (; i != world.particles.end(); i++) {
@@ -64,7 +67,6 @@ int main() {
                 count++;
             }
             DrawGrid(10, 2);
-            DrawSphere(Vector3{0,0,0}, 0.1, BLACK);
             EndMode3D();
         EndDrawing();
         world.step();
