@@ -34,4 +34,14 @@ namespace dough {
         : gravity(gravity) {};
         virtual void updateForce(Particle* particle, real time);
     };
+
+    class ParticleSpring : public ParticleForceGenerator {
+        Particle *other;
+        real springConstant;
+        real restLength;
+        public:
+        ParticleSpring(Particle* other, real springConstant, real restLength);
+
+        virtual void updateForce(Particle* particle, real time);
+    };
 }

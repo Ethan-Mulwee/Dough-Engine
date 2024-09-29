@@ -30,3 +30,20 @@ void ParticleGravity::updateForce(Particle* particle, real time)
     if (!particle->hasFiniteMass()) return;
     particle->addForce(gravity*particle->getMass());
 }
+ParticleSpring::ParticleSpring(Particle* other, real springConstant, real restLength) {
+    ParticleSpring::other = other; 
+    ParticleSpring::springConstant = springConstant;
+    ParticleSpring::restLength = restLength;
+}
+void ParticleSpring::updateForce(Particle* particle, real time) {
+    Vector3 force = particle->getPosition();
+    force -= other->getPosition();
+
+    real magnitude = force.magnitude();
+    magnitude = real_abs(magnitude - restLength);
+    magnitude *= springConstant;
+    
+    force.normalize();
+    force *= -magnitude;
+    particle->addForce(force);
+}
