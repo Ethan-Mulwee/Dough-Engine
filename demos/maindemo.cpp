@@ -26,11 +26,11 @@ void CameraControl() {
 
 }
 
-World world = World(0.016666667, -9.81);
+World world = World(0.005, -9.81);
 
 int main() {
 
-    SetTargetFPS(60);
+    SetTargetFPS(200);
     InitWindow(1920, 1080, "Phyiscs Demo");
 
     camera.position = (Vector3){ 10.0f, 10.0f, 10.0f };
@@ -52,6 +52,7 @@ int main() {
 
             ClearBackground(WHITE);
             DrawSphere(position, 0.5, RED);
+            DrawSphere(Convert(world.b.getPosition()), 0.5, BLUE);
             DrawGrid(1000, 1);
             DrawLine3D(Convert(world.a.getPosition()), Convert(world.a.getVelocity()+world.a.getPosition()), RED);
             DrawLine3D(Convert(world.a.getPosition()), Convert(world.a.getAccumulatedForce()+world.a.getPosition()), BLACK);

@@ -9,8 +9,8 @@ void Particle::integrate(real time)
 
     assert(time>0);
 
-    position += (velocity*time);
     Vector3 resultingAcc = acceleration;
+    position += (velocity*time)+(resultingAcc*time*time);
     resultingAcc += (forceAccum*inverseMass);
     velocity += (resultingAcc*time);
 
@@ -22,4 +22,12 @@ void Particle::integrate(real time)
 void Particle::clearAccumulator()
 {
     forceAccum.clear();
+}
+
+Vector3 Particle::getPosition() const {
+    return position;
+}
+
+void Particle::getPosition(Vector3* position) const {
+    *position = Particle::position;
 }

@@ -18,7 +18,7 @@ namespace dough {
             Registry registrations;
 
         public:
-            void add(Particle* particle, ParticleForceGenerator* fg);
+            void add(Particle* particle, ParticleForceGenerator *fg);
 
             void remove(Particle* particle, ParticleForceGenerator* fg);
 

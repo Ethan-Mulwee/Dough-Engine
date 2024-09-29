@@ -29,9 +29,9 @@ namespace dough {
             inverseMass = (real)1/Mass;
         }
         
-        Vector3 getPosition() {
-            return position;
-        }
+        Vector3 getPosition() const;
+        void getPosition(Vector3* position) const;
+
         Vector3 getVelocity() {
             return velocity;
         }

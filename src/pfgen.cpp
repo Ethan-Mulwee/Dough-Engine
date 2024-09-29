@@ -1,9 +1,9 @@
 #include "dough/pfgen.hpp"
 
 using namespace dough;
-void ParticleForceRegistry::add(Particle *particle, ParticleForceGenerator *fg)
+void ParticleForceRegistry::add(Particle* particle, ParticleForceGenerator* fg)
 {
-    ParticleForceRegistration registration;
+    ParticleForceRegistry::ParticleForceRegistration registration;
     registration.particle = particle;
     registration.fg = fg;
     registrations.push_back(registration);
@@ -36,7 +36,8 @@ ParticleSpring::ParticleSpring(Particle* other, real springConstant, real restLe
     ParticleSpring::restLength = restLength;
 }
 void ParticleSpring::updateForce(Particle* particle, real time) {
-    Vector3 force = particle->getPosition();
+    Vector3 force;
+    particle->getPosition(&force);
     force -= other->getPosition();
 
     real magnitude = force.magnitude();
