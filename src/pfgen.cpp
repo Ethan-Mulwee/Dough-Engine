@@ -70,8 +70,9 @@ void ParticleBungee::updateForce(Particle *particle, real time){
 
     real magnitude = force.magnitude();
     if (magnitude <= restLength) return;
+    magnitude = springConstant * (restLength - magnitude);
 
     force.normalize();
-    force *= -magnitude;
+    force *= magnitude;
     particle->addForce(force);
 }

@@ -7,7 +7,7 @@ using namespace dough;
 World::World(dough::real _timeStep, dough::real _Gravity) {
     timeStep = _timeStep;
     dough::Vector3 Gravity = dough::Vector3(0,_Gravity,0);
-    a.setPosition(Vector3(0,7,0));
+    a.setPosition(Vector3(0,6,0));
     //a.setAcceleration(Vector3(0,-9.81,0));
     //a.setVelocity(Vector3(0,-2,0));
     a.setMass(5);
