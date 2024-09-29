@@ -46,6 +46,18 @@ int main() {
         if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
             world.a.addForce((dough::Vector3(0,0,0)-world.a.getPosition())*world.a.getMass()*5);
         }
+        if (IsKeyDown(KEY_D)) {
+            world.b.setPosition(world.b.getPosition() + dough::Vector3(0.02,0,0));
+        }
+        if (IsKeyDown(KEY_A)) {
+            world.b.setPosition(world.b.getPosition() + dough::Vector3(-0.02,0,0));
+        }
+        if (IsKeyDown(KEY_W)) {
+            world.b.setPosition(world.b.getPosition() + dough::Vector3(0,0,-0.02));
+        }
+        if (IsKeyDown(KEY_S)) {
+            world.b.setPosition(world.b.getPosition() + dough::Vector3(0,0,0.02));
+        }
         Vector3 position = Vector3{world.a.getPosition().x, world.a.getPosition().y, world.a.getPosition().z};
         BeginDrawing();
             BeginMode3D(camera);
@@ -55,7 +67,7 @@ int main() {
             DrawSphere(Convert(world.b.getPosition()), 0.5, BLUE);
             DrawGrid(1000, 1);
             DrawLine3D(Convert(world.a.getPosition()), Convert(world.a.getVelocity()+world.a.getPosition()), RED);
-            DrawLine3D(Convert(world.a.getPosition()), Convert(world.a.getAccumulatedForce()+world.a.getPosition()), BLACK);
+            DrawLine3D(Convert(world.a.getPosition()), Convert(world.b.getPosition()), BLACK);
             DrawSphere(Vector3{0,0,0}, 0.2, BLACK);
             EndMode3D();
             DebugDisplay(world.a);
