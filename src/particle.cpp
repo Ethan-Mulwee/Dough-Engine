@@ -18,3 +18,8 @@ void Particle::integrate(real time)
 
     clearAccumulator();
 }
+
+void Particle::clearAccumulator()
+{
+    forceAccum.clear();
+}

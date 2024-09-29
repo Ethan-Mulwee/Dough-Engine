@@ -46,9 +46,7 @@ namespace dough {
             return acceleration;
         }
 
-        void clearAccumulator() {
-            forceAccum.clear();
-        }
+        void clearAccumulator();
 
         void integrate(real time);
     };

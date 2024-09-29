@@ -21,11 +21,15 @@ void DebugDisplay(dough::Particle particle) {
     DrawText(str3.c_str(), 10, 30, 10, BLACK);
 }
 
+void CameraControl() {
+
+}
+
 int main() {
     dough::Particle particle = dough::Particle(dough::Vector3(0,0,0), dough::Vector3(0.0,2.0,-2.0), 0.999, 1);
 
     SetTargetFPS(60);
-    InitWindow(800, 800, "test");
+    InitWindow(1920, 1080, "Phyiscs Demo");
 
     camera.position = (Vector3){ 10.0f, 10.0f, 10.0f };
     camera.target = (Vector3){ 0.0f, 0.0f, 0.0f };
@@ -46,7 +50,7 @@ int main() {
 
             ClearBackground(WHITE);
             DrawSphere(position, 0.5, RED);
-            DrawGrid(10, 1);
+            DrawGrid(1000, 1);
             Ray ray1 = {Convert(particle.getPosition()), Convert(particle.getVelocity())};
             DrawLine3D(Convert(particle.getPosition()), Convert(particle.getVelocity()+particle.getPosition()), RED);
             DrawLine3D(Convert(particle.getPosition()), Convert(particle.getAccumulatedForce()+particle.getPosition()), BLACK);

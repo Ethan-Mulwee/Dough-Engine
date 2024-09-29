@@ -177,6 +177,30 @@ src/particle.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Main-DEMO.dir/build.make CMakeFiles/Main-DEMO.dir/src/particle.cpp.s
 .PHONY : src/particle.cpp.s
 
+src/pfgen.o: src/pfgen.cpp.o
+.PHONY : src/pfgen.o
+
+# target to build an object file
+src/pfgen.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Main-DEMO.dir/build.make CMakeFiles/Main-DEMO.dir/src/pfgen.cpp.o
+.PHONY : src/pfgen.cpp.o
+
+src/pfgen.i: src/pfgen.cpp.i
+.PHONY : src/pfgen.i
+
+# target to preprocess a source file
+src/pfgen.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Main-DEMO.dir/build.make CMakeFiles/Main-DEMO.dir/src/pfgen.cpp.i
+.PHONY : src/pfgen.cpp.i
+
+src/pfgen.s: src/pfgen.cpp.s
+.PHONY : src/pfgen.s
+
+# target to generate assembly for a file
+src/pfgen.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Main-DEMO.dir/build.make CMakeFiles/Main-DEMO.dir/src/pfgen.cpp.s
+.PHONY : src/pfgen.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -192,6 +216,9 @@ help:
 	@echo "... src/particle.o"
 	@echo "... src/particle.i"
 	@echo "... src/particle.s"
+	@echo "... src/pfgen.o"
+	@echo "... src/pfgen.i"
+	@echo "... src/pfgen.s"
 .PHONY : help
 
 
