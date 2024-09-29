@@ -7,16 +7,19 @@ using namespace dough;
 World::World(dough::real _timeStep, dough::real _Gravity) {
     timeStep = _timeStep;
     dough::Vector3 Gravity = dough::Vector3(0,_Gravity,0);
-    //a.setAcceleration(Gravity);
-    //b.setAcceleration(Gravity);
-    a.setPosition(Vector3(0,1,0));
+    a.setPosition(Vector3(0,7,0));
+    //a.setAcceleration(Vector3(0,-9.81,0));
+    //a.setVelocity(Vector3(0,-2,0));
     a.setMass(5);
     b.setMass(5);
-    a.setDamping(0.8);
-    b.setDamping(0.8);
+    a.setDamping(0.999);
+    b.setDamping(0.999);
 
-    ParticleSpring* psA = new ParticleSpring(&b, 10.0f, 15.0f);
-    registry.add(&a, psA);
+    // Vector3* anchor = new Vector3(0,0,0);
+    // ParticleAnchoredSpring* AnchoredSpringFG = new ParticleAnchoredSpring(anchor, 50, 4);
+    // registry.add(&a, AnchoredSpringFG);
+    ParticleBungee* bungeeFG = new ParticleBungee(&b, 10, 4);
+    registry.add(&a, bungeeFG);
 
 }
 
