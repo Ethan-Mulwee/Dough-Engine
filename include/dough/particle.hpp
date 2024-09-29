@@ -49,5 +49,9 @@ namespace dough {
         void clearAccumulator();
 
         void integrate(real time);
+
+        bool hasFiniteMass() {
+            return (inverseMass != 0);
+        }
     };
 }

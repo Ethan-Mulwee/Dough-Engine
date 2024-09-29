@@ -1,9 +1,11 @@
 #include <iostream>
 #include <raylib.h>
 #include <string>
-#include "dough/particle.hpp"
+#include "dough/pfgen.hpp"
 
 Camera camera = {0};
+dough::ParticleForceRegistry forceGenRegist;
+dough::ParticleGravity gravityFG = dough::ParticleGravity(dough::Vector3(0,-9.81,0));
 
 Vector3 Convert(dough::Vector3 Dvec) {
     return Vector3{Dvec.x, Dvec.y, Dvec.z};
@@ -27,6 +29,7 @@ void CameraControl() {
 
 int main() {
     dough::Particle particle = dough::Particle(dough::Vector3(0,0,0), dough::Vector3(0.0,2.0,-2.0), 0.999, 1);
+    forceGenRegist.add(&particle, &gravityFG);
 
     SetTargetFPS(60);
     InitWindow(1920, 1080, "Phyiscs Demo");
@@ -40,7 +43,9 @@ int main() {
     while(!WindowShouldClose()) {
         UpdateCamera(&camera, CAMERA_PERSPECTIVE);
         //Gravity
-        particle.addForce(dough::Vector3(0,-9.81,0)*particle.getMass());
+        // particle.addForce(dough::Vector3(0,-9.81,0)*particle.getMass());
+        forceGenRegist.updateForces((float)1/60);
+
         if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
             particle.addForce((dough::Vector3(0,0,0)-particle.getPosition())*particle.getMass()*5);
         }

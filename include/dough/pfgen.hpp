@@ -29,5 +29,9 @@ namespace dough {
 
     class ParticleGravity : public ParticleForceGenerator {
         Vector3 gravity;
+        public:
+        ParticleGravity(const Vector3& gravity)
+        : gravity(gravity) {};
+        virtual void updateForce(Particle* particle, real time);
     };
 }
