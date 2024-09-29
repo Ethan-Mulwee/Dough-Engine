@@ -10,10 +10,6 @@ namespace dough {
         real inverseMass;
         Vector3 forceAccum;
         public:
-        Particle(Vector3 position, Vector3 velocity, real damping, real Mass)
-        : position(position), velocity(velocity), damping(damping) {
-            setMass(Mass);
-        }
         void setPosition(Vector3 _position) {
             position = _position;
         }

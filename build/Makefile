@@ -153,6 +153,30 @@ demos/maindemo.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Main-DEMO.dir/build.make CMakeFiles/Main-DEMO.dir/demos/maindemo.cpp.s
 .PHONY : demos/maindemo.cpp.s
 
+demos/simulation.o: demos/simulation.cpp.o
+.PHONY : demos/simulation.o
+
+# target to build an object file
+demos/simulation.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Main-DEMO.dir/build.make CMakeFiles/Main-DEMO.dir/demos/simulation.cpp.o
+.PHONY : demos/simulation.cpp.o
+
+demos/simulation.i: demos/simulation.cpp.i
+.PHONY : demos/simulation.i
+
+# target to preprocess a source file
+demos/simulation.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Main-DEMO.dir/build.make CMakeFiles/Main-DEMO.dir/demos/simulation.cpp.i
+.PHONY : demos/simulation.cpp.i
+
+demos/simulation.s: demos/simulation.cpp.s
+.PHONY : demos/simulation.s
+
+# target to generate assembly for a file
+demos/simulation.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Main-DEMO.dir/build.make CMakeFiles/Main-DEMO.dir/demos/simulation.cpp.s
+.PHONY : demos/simulation.cpp.s
+
 src/particle.o: src/particle.cpp.o
 .PHONY : src/particle.o
 
@@ -213,6 +237,9 @@ help:
 	@echo "... demos/maindemo.o"
 	@echo "... demos/maindemo.i"
 	@echo "... demos/maindemo.s"
+	@echo "... demos/simulation.o"
+	@echo "... demos/simulation.i"
+	@echo "... demos/simulation.s"
 	@echo "... src/particle.o"
 	@echo "... src/particle.i"
 	@echo "... src/particle.s"

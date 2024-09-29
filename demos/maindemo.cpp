@@ -1,11 +1,10 @@
 #include <iostream>
 #include <raylib.h>
 #include <string>
-#include "dough/pfgen.hpp"
+#include "simulation.hpp"
 
 Camera camera = {0};
-//dough::ParticleForceRegistry forceGenRegist;
-//dough::ParticleGravity gravityFG = dough::ParticleGravity(dough::Vector3(0,-9.81,0));
+
 
 Vector3 Convert(dough::Vector3 Dvec) {
     return Vector3{Dvec.x, Dvec.y, Dvec.z};
@@ -27,10 +26,9 @@ void CameraControl() {
 
 }
 
+World world = World(0.016666667, -9.81);
+
 int main() {
-    dough::Particle particle = dough::Particle(dough::Vector3(0,0,0), dough::Vector3(0.0,2.0,-2.0), 0.999, 1);
-    particle.setAcceleration(dough::Vector3(0,-9.81,0));
-    //forceGenRegist.add(&particle, &gravityFG);
 
     SetTargetFPS(60);
     InitWindow(1920, 1080, "Phyiscs Demo");
@@ -43,28 +41,25 @@ int main() {
 
     while(!WindowShouldClose()) {
         UpdateCamera(&camera, CAMERA_PERSPECTIVE);
-        //Gravity
-        // particle.addForce(dough::Vector3(0,-9.81,0)*particle.getMass());
         //forceGenRegist.updateForces((float)1/60);
 
         if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
-            particle.addForce((dough::Vector3(0,0,0)-particle.getPosition())*particle.getMass()*5);
+            world.a.addForce((dough::Vector3(0,0,0)-world.a.getPosition())*world.a.getMass()*5);
         }
-        Vector3 position = Vector3{particle.getPosition().x, particle.getPosition().y, particle.getPosition().z};
+        Vector3 position = Vector3{world.a.getPosition().x, world.a.getPosition().y, world.a.getPosition().z};
         BeginDrawing();
             BeginMode3D(camera);
 
             ClearBackground(WHITE);
             DrawSphere(position, 0.5, RED);
             DrawGrid(1000, 1);
-            Ray ray1 = {Convert(particle.getPosition()), Convert(particle.getVelocity())};
-            DrawLine3D(Convert(particle.getPosition()), Convert(particle.getVelocity()+particle.getPosition()), RED);
-            DrawLine3D(Convert(particle.getPosition()), Convert(particle.getAccumulatedForce()+particle.getPosition()), BLACK);
+            DrawLine3D(Convert(world.a.getPosition()), Convert(world.a.getVelocity()+world.a.getPosition()), RED);
+            DrawLine3D(Convert(world.a.getPosition()), Convert(world.a.getAccumulatedForce()+world.a.getPosition()), BLACK);
             DrawSphere(Vector3{0,0,0}, 0.2, BLACK);
             EndMode3D();
-            DebugDisplay(particle);
+            DebugDisplay(world.a);
         EndDrawing();
-        particle.integrate((float)1/60);
+        world.step();
     }
     CloseWindow();
 }

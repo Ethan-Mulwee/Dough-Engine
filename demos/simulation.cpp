@@ -1,6 +1,8 @@
+#include "simulation.hpp"
 
-class World {
-    void step() {
-        
-    }
-};
+using namespace dough;
+
+void World::step() {
+    a.integrate(timeStep);
+    b.integrate(timeStep);
+}
