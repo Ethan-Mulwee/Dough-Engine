@@ -18,9 +18,11 @@ World::World(dough::real _timeStep, dough::real _Gravity) {
         registry.add(i.base(), gravityFG);
     }
 }
+void World::updateForces() {
+    registry.updateForces(timeStep);
+}
 
 void World::step() {
-    registry.updateForces(timeStep);
     auto i = particles.begin();
     for (; i != particles.end(); i++) {
         i->integrate(timeStep);

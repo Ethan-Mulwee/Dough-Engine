@@ -1,5 +1,6 @@
 #include <iostream>
 #include <raylib.h>
+#include <raymath.h>
 #include <string>
 #include "simulation.hpp"
 
@@ -20,6 +21,13 @@ void DebugDisplay(dough::Particle particle) {
     DrawText(str2.c_str(), 10, 20, 10, BLACK);
     std::string str3 =  "force: " + std::to_string(force.x) +", "+ std::to_string(force.y) +", "+ std::to_string(force.z);
     DrawText(str3.c_str(), 10, 30, 10, BLACK);
+}
+
+void VectorDisplay(dough::Particle particle) {
+    Vector3 position = Convert(particle.getPosition());
+    Vector3 velocity = Convert(particle.getVelocity());
+    Vector3 force = Convert(particle.getAccumulatedForce()*0.1);
+    DrawLine3D(position, Vector3Add(position, force), BLACK);
 }
 
 void CameraControl() {
@@ -43,7 +51,9 @@ int main() {
         Ray ray = GetScreenToWorldRay(GetMousePosition(), camera);
         RayCollision collision = GetRayCollisionQuad(ray, Vector3{-1000,0,-1000}, Vector3{-1000,0,1000}, Vector3{1000,0,1000}, Vector3{1000,0,-1000});
         UpdateCamera(&camera, CAMERA_ORBITAL);
+        world.updateForces();
         BeginDrawing();
+            DebugDisplay(world.particles[0]);
             ClearBackground(Color{35, 35, 35, 255});
             BeginMode3D(camera);
             DrawSphere(collision.point, 0.4, WHITE);
@@ -63,6 +73,7 @@ int main() {
                     color = ORANGE; break;
                 }
                 DrawSphere(Convert(i->getPosition()), (i->getMass())/10, color);
+                VectorDisplay(*i.base());
                 count++;
             }
             DrawGrid(10, 2);

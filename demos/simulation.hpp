@@ -9,6 +9,6 @@ class World {
     public:
     std::vector<dough::Particle> particles;
     World(dough::real _timeStep, dough::real _Gravity);
-
+    void updateForces();
     void step();
 };
