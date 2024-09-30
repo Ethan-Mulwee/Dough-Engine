@@ -26,12 +26,12 @@ void CameraControl() {
 
 }
 
-World world = World(0.0025, -9.81);
+World world = World(((float)1/60), -9.81);
 
 int main() {
 
-    SetTargetFPS(200);
-    InitWindow(1920, 1080, "Phyiscs Demo");
+    SetTargetFPS(60);
+    InitWindow(1280, 720, "Phyiscs Demo");
 
     camera.position = (Vector3){ 12.0f, 12.0f, 12.0f };
     camera.target = (Vector3){ 0.0f, 0.0f, 0.0f };
@@ -45,7 +45,6 @@ int main() {
         UpdateCamera(&camera, CAMERA_ORBITAL);
         BeginDrawing();
             ClearBackground(Color{35, 35, 35, 255});
-            DrawText(str.c_str(), 10, 10, 10, WHITE);
             BeginMode3D(camera);
             DrawSphere(collision.point, 0.4, WHITE);
             int count = 0;

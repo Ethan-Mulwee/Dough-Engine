@@ -1,3 +1,0 @@
-/home/ethan/Documents/GitHub/Dough-Engine/build/CMakeFiles/Main-DEMO.dir
-/home/ethan/Documents/GitHub/Dough-Engine/build/CMakeFiles/edit_cache.dir
-/home/ethan/Documents/GitHub/Dough-Engine/build/CMakeFiles/rebuild_cache.dir
