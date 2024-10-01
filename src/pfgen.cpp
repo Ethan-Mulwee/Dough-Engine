@@ -8,7 +8,7 @@ void ParticleForceRegistry::add(Particle* particle, ParticleForceGenerator* fg) 
     registrations.push_back(registration);
 }
 void ParticleForceRegistry::remove(Particle* particle, ParticleForceGenerator* fg) {
-
+    ParticleForceRegistry::ParticleForceRegistration registration;
 }
 void ParticleForceRegistry::clear() {
     
@@ -25,11 +25,9 @@ void ParticleGravity::updateForce(Particle* particle, real time) {
     if (!particle->hasFiniteMass()) return;
     particle->addForce(gravity*particle->getMass());
 }
-ParticleSpring::ParticleSpring(Particle* other, real springConstant, real restLength) {
-    ParticleSpring::other = other; 
-    ParticleSpring::springConstant = springConstant;
-    ParticleSpring::restLength = restLength;
-}
+ParticleSpring::ParticleSpring(Particle* other, real springConstant, real restLength) 
+: other(other), springConstant(springConstant), restLength(restLength) {}
+
 void ParticleSpring::updateForce(Particle* particle, real time) {
     Vector3 force;
     particle->getPosition(&force);
@@ -63,7 +61,7 @@ void ParticleAnchoredSpring::updateForce(Particle *particle, real time) {
 ParticleBungee::ParticleBungee(Particle *other, real springConstant, real restLength) 
 : other(other), springConstant(springConstant), restLength(restLength) {}
 
-void ParticleBungee::updateForce(Particle *particle, real time){
+void ParticleBungee::updateForce(Particle *particle, real time) {
     Vector3 force;
     particle->getPosition(&force);
     force -= other->getPosition();
@@ -80,7 +78,7 @@ void ParticleBungee::updateForce(Particle *particle, real time){
 ParticlesGravity::ParticlesGravity(std::vector<Particle> *particles) 
 : particles(particles) {};
 
-void ParticlesGravity::updateForce(Particle *particle, real time){
+void ParticlesGravity::updateForce(Particle *particle, real time) {
     auto i = particles->begin();
     for (; i != particles->end(); i++) {
         Vector3 force = (i->getPosition() - particle->getPosition());

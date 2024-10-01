@@ -7,8 +7,12 @@
 Camera camera = {0};
 
 
-Vector3 Convert(dough::Vector3 Dvec) {
+Vector3 ConvertRay(dough::Vector3 Dvec) {
     return Vector3{Dvec.x, Dvec.y, Dvec.z};
+}
+
+dough::Vector3 ConvertDough(Vector3 Rvec) {
+    return dough::Vector3(Rvec.x, Rvec.y, Rvec.z);
 }
 
 void DebugDisplay(dough::Particle particle) {
@@ -24,9 +28,9 @@ void DebugDisplay(dough::Particle particle) {
 }
 
 void VectorDisplay(dough::Particle particle) {
-    Vector3 position = Convert(particle.getPosition());
-    Vector3 velocity = Convert(particle.getVelocity());
-    Vector3 force = Convert(particle.getAccumulatedForce()*0.1);
+    Vector3 position = ConvertRay(particle.getPosition());
+    Vector3 velocity = ConvertRay(particle.getVelocity());
+    Vector3 force = ConvertRay(particle.getAccumulatedForce()*0.1);
     DrawLine3D(position, Vector3Add(position, force), BLACK);
 }
 
@@ -52,8 +56,14 @@ int main() {
         RayCollision collision = GetRayCollisionQuad(ray, Vector3{-1000,0,-1000}, Vector3{-1000,0,1000}, Vector3{1000,0,1000}, Vector3{1000,0,-1000});
         UpdateCamera(&camera, CAMERA_ORBITAL);
         world.updateForces();
+        auto j = world.particles.begin();
+        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+            for (; j != world.particles.end(); j++) {
+                dough::Vector3 point = ConvertDough(collision.point);
+                j->addForce((point-j->getPosition())*j->getMass());
+            }
+        }
         BeginDrawing();
-            DebugDisplay(world.particles[0]);
             ClearBackground(Color{35, 35, 35, 255});
             BeginMode3D(camera);
             DrawSphere(collision.point, 0.4, WHITE);
@@ -72,7 +82,7 @@ int main() {
                     case 3:
                     color = ORANGE; break;
                 }
-                DrawSphere(Convert(i->getPosition()), (i->getMass())/10, color);
+                DrawSphere(ConvertRay(i->getPosition()), (i->getMass())/10, color);
                 VectorDisplay(*i.base());
                 count++;
             }
