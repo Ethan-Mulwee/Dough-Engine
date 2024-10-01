@@ -1,4 +1,4 @@
-#include "dough/pfgen.hpp"
+#include "dough/pcontacts.hpp"
 #include <vector>
 
 
@@ -10,5 +10,6 @@ class World {
     std::vector<dough::Particle> particles;
     World(dough::real _timeStep, dough::real _Gravity);
     void updateForces();
+    void checkCollisions();
     void step();
 };

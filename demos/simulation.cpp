@@ -1,3 +1,4 @@
+#include <iostream>
 #include "simulation.hpp"
 
 using namespace dough;
@@ -8,7 +9,7 @@ World::World(dough::real _timeStep, dough::real _Gravity) {
     timeStep = _timeStep;
     dough::Vector3 Gravity = dough::Vector3(0,_Gravity,0);
     ParticlesGravity* gravityFG = new ParticlesGravity(&particles);
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 2; i++) {
         particles.push_back(Particle());
     }
     auto i = particles.begin();
@@ -20,6 +21,21 @@ World::World(dough::real _timeStep, dough::real _Gravity) {
 }
 void World::updateForces() {
     registry.updateForces(timeStep);
+}
+
+void World::checkCollisions() {
+    auto i = particles.begin();
+    for (; i != particles.end(); i++) {
+        auto j = particles.begin();
+        for (; j != particles.end(); j++) {
+            if (i==j) continue;
+            Vector3 distance = j->getPosition() - i->getPosition();
+            if ((real_abs(distance.magnitude())) < 0.1) {
+                std::cout << "collision detected" << std::endl;
+                ParticleContact contactResolver = ParticleContact();
+            }
+        } 
+    }
 }
 
 void World::step() {

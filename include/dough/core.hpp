@@ -18,6 +18,9 @@ namespace dough {
         Vector3 operator*(const real value) {
             return Vector3(x*value,y*value,z*value); 
         }
+        real operator*(const Vector3 vector) const {
+            return x*vector.x + y*vector.y + z*vector.z;
+        }
         void operator+=(const Vector3 vector) {
             x += vector.x; y += vector.y; z += vector.z;
         }

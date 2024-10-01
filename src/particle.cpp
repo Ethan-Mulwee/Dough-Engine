@@ -3,8 +3,7 @@
 
 using namespace dough;
 
-void Particle::integrate(real time)
-{
+void Particle::integrate(real time) {
     if (inverseMass <= 0) return;
 
     assert(time>0);
@@ -19,8 +18,7 @@ void Particle::integrate(real time)
     clearAccumulator();
 }
 
-void Particle::clearAccumulator()
-{
+void Particle::clearAccumulator() {
     forceAccum.clear();
 }
 
