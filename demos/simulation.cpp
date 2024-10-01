@@ -33,6 +33,11 @@ void World::checkCollisions() {
             if ((real_abs(distance.magnitude())) < 0.1) {
                 std::cout << "collision detected" << std::endl;
                 ParticleContact contactResolver = ParticleContact();
+                contactResolver.particle[0] = i.base();
+                contactResolver.particle[1] = j.base();
+                contactResolver.restitution = 1;
+                contactResolver.contactNormal = (i->getPosition() - j->getPosition());
+                contactResolver.resolve(timeStep);
             }
         } 
     }

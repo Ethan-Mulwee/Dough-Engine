@@ -7,7 +7,7 @@ namespace dough {
         Particle* particle[2];
         real restitution;
         Vector3 contactNormal;
-        protected:
+        public: //should be protected is public temporarily
         void resolve(real time);
         real calculateSeparatingVelocity() const;
         private:
