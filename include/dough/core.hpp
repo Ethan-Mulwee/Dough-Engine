@@ -1,3 +1,6 @@
+#ifndef DOUGH_CORE_H
+#define DOUGH_CORE_H
+
 #include "precision.hpp"
 
 namespace dough {
@@ -55,3 +58,5 @@ namespace dough {
         }
     };
 }
+
+#endif

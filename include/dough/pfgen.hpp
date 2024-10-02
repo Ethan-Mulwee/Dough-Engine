@@ -1,3 +1,6 @@
+#ifndef DOUGH_PFGEN_H
+#define DOUGH_PFGEN_H
+
 #include "particle.hpp"
 #include <vector>
 
@@ -74,3 +77,5 @@ namespace dough {
         virtual void updateForce(Particle* particle, real time);
     };
 }
+
+#endif

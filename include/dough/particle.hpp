@@ -1,3 +1,6 @@
+#ifndef DOUGH_PARTICLE_H
+#define DOUGH_PARTICLE_H
+
 #include "core.hpp"
 
 namespace dough {
@@ -57,3 +60,5 @@ namespace dough {
         }
     };
 }
+
+#endif

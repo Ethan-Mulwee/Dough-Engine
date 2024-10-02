@@ -1,5 +1,7 @@
-#include "pfgen.hpp"
+#ifndef DOUGH_PCONTACTS_H
+#define DOUGH_PCONTACTS_H
 
+#include "particle.hpp"
 
 namespace dough {
     class ParticleContact {
@@ -16,3 +18,5 @@ namespace dough {
         void resolveInterpenetration(real time);
     };
 }
+
+#endif

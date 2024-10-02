@@ -1,4 +1,5 @@
 #include "dough/pcontacts.hpp"
+#include "dough/pfgen.hpp"
 #include <vector>
 
 
