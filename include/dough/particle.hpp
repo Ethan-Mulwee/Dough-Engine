@@ -44,6 +44,9 @@ namespace dough {
         Vector3 getAcceleration() {
             return acceleration;
         }
+        real getInverseMass() {
+            return inverseMass;
+        }
 
         void clearAccumulator();
 
