@@ -54,7 +54,7 @@ int main() {
     while(!WindowShouldClose()) {
         Ray ray = GetScreenToWorldRay(GetMousePosition(), camera);
         RayCollision collision = GetRayCollisionQuad(ray, Vector3{-1000,0,-1000}, Vector3{-1000,0,1000}, Vector3{1000,0,1000}, Vector3{1000,0,-1000});
-        UpdateCamera(&camera, CAMERA_ORBITAL);
+        UpdateCamera(&camera, CAMERA_PERSPECTIVE);
         world.updateForces();
         auto j = world.particles.begin();
         if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
@@ -82,7 +82,7 @@ int main() {
                     case 3:
                     color = ORANGE; break;
                 }
-                DrawSphere(ConvertRay(i->getPosition()), (i->getMass())/10, color);
+                DrawSphere(ConvertRay(i->getPosition()), 0.5, color); //(i->getMass())/10
                 VectorDisplay(*i.base());
                 count++;
             }
