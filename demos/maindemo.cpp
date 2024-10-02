@@ -43,7 +43,7 @@ World world = World(((float)1/60), -9.81);
 int main() {
 
     SetTargetFPS(60);
-    InitWindow(1280/2, 720/2, "Phyiscs Demo");
+    InitWindow(1280, 720, "Phyiscs Demo");
 
     camera.position = (Vector3){ 12.0f, 12.0f, 12.0f };
     camera.target = (Vector3){ 0.0f, 0.0f, 0.0f };
@@ -66,7 +66,8 @@ int main() {
         BeginDrawing();
             ClearBackground(Color{35, 35, 35, 255});
             BeginMode3D(camera);
-            DrawSphere(collision.point, 0.4, WHITE);
+            DrawGrid(10, 2);
+            DrawSphere(collision.point, 0.5, WHITE);
             int count = 0;
             auto i = world.particles.begin();
             for (; i != world.particles.end(); i++) {
@@ -86,7 +87,6 @@ int main() {
                 VectorDisplay(*i.base());
                 count++;
             }
-            DrawGrid(10, 2);
             EndMode3D();
         EndDrawing();
         world.checkCollisions();

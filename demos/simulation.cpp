@@ -15,7 +15,7 @@ World::World(dough::real _timeStep, dough::real _Gravity) {
     auto i = particles.begin();
     for (; i != particles.end(); i++) {
         i->setPosition(Vector3((rand()%10)-5, (rand()%10)+5, (rand()%10)-5));
-        i->setMass((rand()%3)+1);
+        i->setMass(2); //(rand()%3)+1
         i->setAcceleration(Vector3(0,-9.81,0));
         i->setVelocity(Vector3(rand()%2, rand()%2, rand()%2));
         //registry.add(i.base(), gravityFG);
@@ -37,7 +37,7 @@ void World::checkCollisions() {
                 ParticleContact contactResolver = ParticleContact();
                 contactResolver.particle[0] = i.base();
                 contactResolver.particle[1] = j.base();
-                contactResolver.restitution = 0.9;
+                contactResolver.restitution = 0.95;
                 contactResolver.contactNormal = (i->getPosition() - j->getPosition());
                 contactResolver.resolve(timeStep);
             }
@@ -45,7 +45,7 @@ void World::checkCollisions() {
         if (i->getPosition().y < 0) {
             ParticleContact groundResolver = ParticleContact();
             groundResolver.particle[0] = i.base();
-            groundResolver.restitution = 0.9;
+            groundResolver.restitution = 0.95;
             groundResolver.contactNormal = Vector3(0,1,0);
             groundResolver.resolve(timeStep);
         }
