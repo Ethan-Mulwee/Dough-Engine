@@ -4,6 +4,7 @@ using namespace dough;
 
 void ParticleContact::resolve(real time) {
     resolveVelocity(time);
+    resolveInterpenetration(time);
 }
 
 real ParticleContact::calculateSeparatingVelocity() const {
@@ -34,5 +35,21 @@ void ParticleContact::resolveVelocity(real duration) {
 
     if (particle[1]) {
         particle[0]->setVelocity(particle[1]->getVelocity()+impulsePerIMass*particle[1]->getInverseMass());
+    }
+}
+
+void ParticleContact::resolveInterpenetration(real time) {
+    if (penetration <= 0) return;
+    real totalInverseMass = particle[0]->getInverseMass();
+    if (particle[1]) totalInverseMass += particle[1]->getInverseMass();
+
+    if (totalInverseMass <= 0) return;
+
+    Vector3 movePerIMass = contactNormal * (penetration/totalInverseMass);
+
+    //Add a particle movement array later to accumlate multiple movements
+    particle[0]->setPosition(movePerIMass*particle[0]->getInverseMass());
+    if (particle[1]) {
+        particle[1]->setPosition(movePerIMass * particle[1]->getInverseMass());
     }
 }

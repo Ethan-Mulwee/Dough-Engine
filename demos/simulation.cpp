@@ -32,7 +32,7 @@ void World::checkCollisions() {
         for (; j != particles.end(); j++) {
             if (i==j) continue;
             Vector3 distance = j->getPosition() - i->getPosition();
-            if ((real_abs(distance.magnitude())) < 0.5) {
+            if ((real_abs(distance.magnitude())) < 1) {
                 // std::cout << "collision detected" << std::endl;
                 ParticleContact contactResolver = ParticleContact();
                 contactResolver.particle[0] = i.base();
