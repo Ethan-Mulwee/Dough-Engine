@@ -6,7 +6,6 @@
 
 Camera camera = {0};
 
-
 Vector3 ConvertRay(dough::Vector3 Dvec) {
     return Vector3{Dvec.x, Dvec.y, Dvec.z};
 }
@@ -41,7 +40,6 @@ void CameraControl() {
 World world = World(((float)1/60), -9.81);
 
 int main() {
-
     SetTargetFPS(60);
     InitWindow(1280, 720, "Phyiscs Demo");
 

@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.10)
 
 project(Phyiscs)
 
-
 file(GLOB_RECURSE SRC_FILES src/*.cpp)
 add_executable(Main-DEMO demos/maindemo.cpp demos/simulation.cpp ${SRC_FILES})
 target_include_directories(Main-DEMO PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)

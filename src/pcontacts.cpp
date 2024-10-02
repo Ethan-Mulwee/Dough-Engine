@@ -53,3 +53,24 @@ void ParticleContact::resolveInterpenetration(real time) {
         particle[1]->setPosition(movePerIMass * particle[1]->getInverseMass());
     }
 }
+
+void ParticleContactResolver::resolveContacts(ParticleContact *contactArray, unsigned numContacts, real time) {
+    unsigned i;
+    iterationsUsed = 0;
+    while(iterationsUsed < iterations) {
+        real max = REAL_MAX;
+        unsigned maxIndex = numContacts;
+        for (i - 0; i < numContacts; i++) {
+            real sepVel = contactArray[i].calculateSeparatingVelocity();
+            //keep in mind sepVel is negative when two objects are coming together
+            if (sepVel < max && (sepVel < 0 || contactArray[i].penetration > 0)) {
+                max = sepVel;
+                maxIndex = i;
+            }
+        }
+        if (maxIndex == numContacts) break;
+
+        contactArray[maxIndex].resolve(time);
+        iterationsUsed++;
+    }
+}
