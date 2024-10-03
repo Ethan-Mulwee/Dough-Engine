@@ -27,8 +27,8 @@ namespace dough {
 
     class ParticleContactResolver {
         protected:
-        unsigned iterations;
         unsigned iterationsUsed;
+        unsigned iterations; // temp public
 
         public:
         ParticleContactResolver(unsigned iterations);

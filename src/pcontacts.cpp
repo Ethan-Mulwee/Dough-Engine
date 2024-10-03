@@ -1,4 +1,5 @@
 #include "dough/pcontacts.hpp"
+#include <iostream>
 
 using namespace dough;
 
@@ -17,6 +18,7 @@ real ParticleContact::calculateSeparatingVelocity() const {
 }
 
 void ParticleContact::resolveVelocity(real duration) {
+    std::cout << "resolveVelocity called" << std::endl;
     real separatingVelocity = calculateSeparatingVelocity();
     if (separatingVelocity > 0) return;
     real newSepVelocity = -separatingVelocity * restitution;
@@ -59,16 +61,17 @@ ParticleContactResolver::ParticleContactResolver(unsigned iterations) {
 }
 
 void ParticleContactResolver::setIterations(unsigned iterations) {
-    iterations = iterations;
+    ParticleContactResolver::iterations = iterations;
 }
 
 void ParticleContactResolver::resolveContacts(ParticleContact *contactArray, unsigned numContacts, real time) {
+    std::cout << "resolveContacts called" << std::endl;
     unsigned i;
     iterationsUsed = 0;
     while(iterationsUsed < iterations) {
         real max = REAL_MAX;
         unsigned maxIndex = numContacts;
-        for (i - 0; i < numContacts; i++) {
+        for (i = 0; i < numContacts; i++) {
             real sepVel = contactArray[i].calculateSeparatingVelocity();
             //keep in mind sepVel is negative when two objects are coming together
             if (sepVel < max && (sepVel < 0 || contactArray[i].penetration > 0)) {
@@ -76,8 +79,10 @@ void ParticleContactResolver::resolveContacts(ParticleContact *contactArray, uns
                 maxIndex = i;
             }
         }
+        //std::cout << "ran" << std::endl;
+        std::cout << "maxIndex: " + std::to_string(maxIndex) << std::endl;
+        std::cout << "numContacts: " + std::to_string(numContacts) << std::endl;
         if (maxIndex == numContacts) break;
-
         contactArray[maxIndex].resolve(time);
         iterationsUsed++;
     }

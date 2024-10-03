@@ -1,16 +1,19 @@
 #include "dough/plinks.hpp"
+#include <iostream>
+#include <string>
 
 using namespace dough;
 
 real ParticleLink::currentLength() const {
     Vector3 relativePos = particle[0]->getPosition()-particle[1]->getPosition();
+    //std::cout << std::to_string((relativePos.magnitude())) << std::endl;
     return relativePos.magnitude();
 }
 
 unsigned ParticleCable::addContact(ParticleContact* contact, unsigned limit) const {
     real length = currentLength();
-
     if (length < maxLength) {
+        std::cout << "Contact not added" << std::endl;
         return 0;
     }
 
@@ -23,6 +26,6 @@ unsigned ParticleCable::addContact(ParticleContact* contact, unsigned limit) con
 
     contact->penetration = length-maxLength;
     contact->restitution = restitution;
-
+    //contact->resolve(0.1);
     return 1;
 }
