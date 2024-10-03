@@ -38,7 +38,7 @@ void ParticleContact::resolveVelocity(real duration) {
     particle[0]->setVelocity(particle[0]->getVelocity()+impulsePerIMass*particle[0]->getInverseMass());
 
     if (particle[1]) {
-        particle[0]->setVelocity(particle[1]->getVelocity()+impulsePerIMass*particle[1]->getInverseMass());
+        particle[1]->setVelocity(particle[1]->getVelocity()+impulsePerIMass*-particle[1]->getInverseMass());
     }
     // particle[0]->setVelocity(Vector3(0,10,0));
     // particle[1]->setVelocity(Vector3(0,10,0));
