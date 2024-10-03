@@ -16,11 +16,12 @@ World::World(dough::real _timeStep, dough::real _Gravity, unsigned maxContacts, 
     for (int i = 0; i < 2; i++) {
         particles.push_back(Particle());
     }
-    particles[0].setMass(1);
+    particles[0].setInverseMass(0);
     particles[1].setMass(1);
-    particles[0].setVelocity(Vector3(0,3,0));
+    particles[0].setVelocity(Vector3(0,0,0));
     particles[0].setPosition(Vector3(0,7,0));
     particles[1].setPosition(Vector3(0,2,0));
+    particles[1].setAcceleration(Vector3(0,-9.81,0));
     //particles[1].setAcceleration(Vector3(0,-10,0));
     // auto i = particles.begin();
     // for (; i != particles.end(); i++) {
