@@ -27,6 +27,7 @@ void DebugDisplay(dough::Particle particle) {
 }
 
 void VectorDisplay(dough::Particle particle) {
+    if (particle.getInverseMass() == 0) return;
     Vector3 position = ConvertRay(particle.getPosition());
     Vector3 velocity = ConvertRay(particle.getVelocity());
     Vector3 force = ConvertRay(particle.getAccumulatedForce()*0.1);
@@ -41,7 +42,7 @@ World world = World(((float)1/60), -9.81, 100, 4);
 
 int main() {
     SetTargetFPS(60);
-    InitWindow(1280/2, 720/2, "Phyiscs Demo");
+    InitWindow(1280, 720, "Phyiscs Demo");
 
     camera.position = (Vector3){ 12.0f, 12.0f, 12.0f };
     camera.target = (Vector3){ 0.0f, 0.0f, 0.0f };

@@ -91,5 +91,12 @@ void ParticleContactResolver::resolveContacts(ParticleContact *contactArray, uns
 }
 
 unsigned ParticleGroundCollision::addContact(ParticleContact* contact, unsigned limit) const {
+    if (particle->getPosition().y > 0) return 0;
+    contact->particle[0] = particle;
 
+    Vector3 normal = Vector3(0,1,0);
+    contact->contactNormal = normal;
+    contact->penetration = -particle->getPosition().y;
+    contact->restitution = 1;
+    return 1;
 }

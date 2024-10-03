@@ -41,16 +41,17 @@ namespace dough {
         virtual unsigned addContact(ParticleContact* contact, unsigned limit) const = 0;
     };
 
-    class ParticleParticleCollison : ParticleContactGenerator {
+    class ParticleParticleCollison : public ParticleContactGenerator {
         public:
         real radius;
         virtual unsigned addContact(ParticleContact* contact, unsigned limit) const = 0;
     };
 
-    class ParticleGroundCollision : ParticleContactGenerator {
+    class ParticleGroundCollision : public ParticleContactGenerator {
         public:
         real radius;
-        virtual unsigned addContact(ParticleContact* contact, unsigned limit) const = 0;
+        Particle* particle;
+        virtual unsigned addContact(ParticleContact* contact, unsigned limit) const;
     };
 }
 

@@ -37,8 +37,11 @@ World::World(dough::real _timeStep, dough::real _Gravity, unsigned maxContacts, 
     contactGen->particle[0] = &particles[0];
     contactGen->particle[1] = &particles[1];
     contactGen->maxLength = 10;
-    contactGen->restitution = 0.2;
+    contactGen->restitution = 0.6;
     contactGenerators.push_back(contactGen);
+    ParticleGroundCollision* groundColGen = new ParticleGroundCollision();
+    groundColGen->particle = &particles[1];
+    contactGenerators.push_back(groundColGen);
 }
 
 void World::checkCollisions() {
