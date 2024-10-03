@@ -58,7 +58,7 @@ int main() {
         if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
             for (; j != world.particles.end(); j++) {
                 dough::Vector3 point = ConvertDough(collision.point);
-                j->addForce((point-j->getPosition())*j->getMass());
+                j->addForce((point-j->getPosition())); //*mass to get equal acceleration on all particles
             }
         }
         BeginDrawing();

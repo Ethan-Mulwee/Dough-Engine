@@ -31,6 +31,9 @@ namespace dough {
         void setMass(real Mass) {
             inverseMass = (real)1/Mass;
         }
+        void setInverseMass(real inverseMass) {
+            Particle::inverseMass = inverseMass;
+        }
         
         Vector3 getPosition() const;
         void getPosition(Vector3* position) const;

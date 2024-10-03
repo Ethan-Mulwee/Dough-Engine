@@ -5,7 +5,8 @@ using namespace dough;
 
 void ParticleContact::resolve(real time) {
     resolveVelocity(time);
-    resolveInterpenetration(time);
+    //TODO: fix resolve Interpentration
+    //resolveInterpenetration(time);
 }
 
 real ParticleContact::calculateSeparatingVelocity() const {
@@ -18,6 +19,7 @@ real ParticleContact::calculateSeparatingVelocity() const {
 }
 
 void ParticleContact::resolveVelocity(real duration) {
+    //TODO: For some reason if one of the particles has infite mass no veloicty changes are applied, figure out why
     std::cout << "resolveVelocity called" << std::endl;
     real separatingVelocity = calculateSeparatingVelocity();
     if (separatingVelocity > 0) return;
@@ -38,6 +40,8 @@ void ParticleContact::resolveVelocity(real duration) {
     if (particle[1]) {
         particle[0]->setVelocity(particle[1]->getVelocity()+impulsePerIMass*particle[1]->getInverseMass());
     }
+    // particle[0]->setVelocity(Vector3(0,10,0));
+    // particle[1]->setVelocity(Vector3(0,10,0));
 }
 
 void ParticleContact::resolveInterpenetration(real time) {
@@ -79,11 +83,13 @@ void ParticleContactResolver::resolveContacts(ParticleContact *contactArray, uns
                 maxIndex = i;
             }
         }
-        //std::cout << "ran" << std::endl;
-        std::cout << "maxIndex: " + std::to_string(maxIndex) << std::endl;
-        std::cout << "numContacts: " + std::to_string(numContacts) << std::endl;
         if (maxIndex == numContacts) break;
+        std::cout << "Attempting to resolve" << std::endl;
         contactArray[maxIndex].resolve(time);
         iterationsUsed++;
     }
+}
+
+unsigned ParticleGroundCollision::addContact(ParticleContact* contact, unsigned limit) const {
+
 }

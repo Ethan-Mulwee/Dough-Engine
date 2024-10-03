@@ -13,7 +13,6 @@ real ParticleLink::currentLength() const {
 unsigned ParticleCable::addContact(ParticleContact* contact, unsigned limit) const {
     real length = currentLength();
     if (length < maxLength) {
-        std::cout << "Contact not added" << std::endl;
         return 0;
     }
 
@@ -26,6 +25,5 @@ unsigned ParticleCable::addContact(ParticleContact* contact, unsigned limit) con
 
     contact->penetration = length-maxLength;
     contact->restitution = restitution;
-    //contact->resolve(0.1);
     return 1;
 }

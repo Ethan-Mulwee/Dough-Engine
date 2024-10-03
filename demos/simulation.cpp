@@ -10,17 +10,18 @@ World::World(dough::real _timeStep, dough::real _Gravity, unsigned maxContacts, 
 : resolver(iterations), maxContacts(maxContacts) {
     
     contacts = new ParticleContact[maxContacts];
-    
+
     timeStep = _timeStep;
     dough::Vector3 Gravity = dough::Vector3(0,_Gravity,0);
     for (int i = 0; i < 2; i++) {
         particles.push_back(Particle());
     }
-    particles[0].setMass(2);
-    particles[1].setMass(2);
+    particles[0].setMass(1);
+    particles[1].setMass(1);
+    particles[0].setVelocity(Vector3(0,3,0));
     particles[0].setPosition(Vector3(0,7,0));
     particles[1].setPosition(Vector3(0,2,0));
-    particles[1].setAcceleration(Vector3(0,-10,0));
+    //particles[1].setAcceleration(Vector3(0,-10,0));
     // auto i = particles.begin();
     // for (; i != particles.end(); i++) {
     //     i->setPosition(Vector3((rand()%10)-5, (rand()%10)+5, (rand()%10)-5));
@@ -75,7 +76,7 @@ void World::step() {
         i->integrate(timeStep);
     }
     unsigned usedContacts = generateContacts();
-    std::cout << "used contacts" + std::to_string(usedContacts) << std::endl;
+    //std::cout << "used contacts" + std::to_string(usedContacts) << std::endl;
     if (usedContacts) {
         resolver.setIterations(usedContacts*2);
         resolver.resolveContacts(contacts, usedContacts, timeStep);
