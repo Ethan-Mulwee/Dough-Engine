@@ -14,9 +14,9 @@ class World {
     dough::ParticleContact *contacts;
     dough::real timeStep;
     unsigned maxContacts;
-    Particles particles;
     ContactGenerators contactGenerators;
     public:
+    Particles particles;
     World(dough::real _timeStep, dough::real _Gravity, unsigned maxContacts, unsigned iterations);
     void updateForces();
     void checkCollisions();

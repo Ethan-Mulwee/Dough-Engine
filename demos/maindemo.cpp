@@ -37,7 +37,7 @@ void CameraControl() {
 
 }
 
-World world = World(((float)1/60), -9.81);
+World world = World(((float)1/60), -9.81, 100, 4);
 
 int main() {
     SetTargetFPS(60);
