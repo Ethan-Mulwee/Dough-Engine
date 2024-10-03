@@ -5,10 +5,10 @@ using namespace dough;
 
 
 
-World::World(dough::real _timeStep, dough::real _Gravity) {
+World::World(dough::real _timeStep, dough::real _Gravity, unsigned maxContacts, unsigned iterations) 
+: resolver(iterations), maxContacts(maxContacts) {
     timeStep = _timeStep;
     dough::Vector3 Gravity = dough::Vector3(0,_Gravity,0);
-    ParticlesGravity* gravityFG = new ParticlesGravity(&particles);
     for (int i = 0; i < 50; i++) {
         particles.push_back(Particle());
     }
