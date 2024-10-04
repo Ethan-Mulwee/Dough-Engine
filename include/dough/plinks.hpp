@@ -22,6 +22,13 @@ namespace dough {
 
         virtual unsigned addContact(ParticleContact *contact, unsigned limit) const;
     };
+
+    class ParticleRod : public ParticleLink {
+        public:
+        real length;
+
+        virtual unsigned addContact(ParticleContact *contact, unsigned limit) const;
+    };
 }
 
 #endif

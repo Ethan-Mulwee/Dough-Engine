@@ -13,15 +13,19 @@ World::World(dough::real _timeStep, dough::real _Gravity, unsigned maxContacts, 
 
     timeStep = _timeStep;
     dough::Vector3 Gravity = dough::Vector3(0,_Gravity,0);
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 4; i++) {
         particles.push_back(Particle());
     }
-    particles[0].setInverseMass(0);
+    particles[0].setMass(1000);
     particles[1].setMass(1);
     particles[0].setVelocity(Vector3(0,0,0));
     particles[0].setPosition(Vector3(0,7,0));
     particles[1].setPosition(Vector3(0,2,0));
     particles[1].setAcceleration(Vector3(0,-9.81,0));
+    particles[2].setMass(2);
+    particles[2].setAcceleration(Vector3(0,-9.81,0));
+    particles[3].setMass(1);
+   // particles[3].setAcceleration(Vector3(0,-9.81,0));
     //particles[1].setAcceleration(Vector3(0,-10,0));
     // auto i = particles.begin();
     // for (; i != particles.end(); i++) {
@@ -33,15 +37,26 @@ World::World(dough::real _timeStep, dough::real _Gravity, unsigned maxContacts, 
     // }
     // ParticleCable particleCable = ParticleCable();
     // particleCable.particle[0] = &particles[0];
-    ParticleCable* contactGen = new ParticleCable();
-    contactGen->particle[0] = &particles[0];
-    contactGen->particle[1] = &particles[1];
-    contactGen->maxLength = 10;
-    contactGen->restitution = 0.6;
-    contactGenerators.push_back(contactGen);
-    ParticleGroundCollision* groundColGen = new ParticleGroundCollision();
-    groundColGen->particle = &particles[1];
-    contactGenerators.push_back(groundColGen);
+    ParticleCable* particleCable1 = new ParticleCable();
+    particleCable1->particle[0] = &particles[0];
+    particleCable1->particle[1] = &particles[1];
+    particleCable1->maxLength = 10;
+    particleCable1->restitution = 0.3;
+    contactGenerators.push_back(particleCable1);
+    ParticleCable* particleCable2 = new ParticleCable();
+    particleCable2->particle[0] = &particles[0];
+    particleCable2->particle[1] = &particles[2];
+    particleCable2->maxLength = 7;
+    particleCable2->restitution = 0.1;
+    contactGenerators.push_back(particleCable2);
+    // ParticleRod* particleRod1 = new ParticleRod();
+    // particleRod1->particle[0] = &particles[0];
+    // particleRod1->particle[1] = &particles[3];
+    // particleRod1->length = 7;
+    // contactGenerators.push_back(particleRod1);
+    // ParticleGroundCollision* groundColGen = new ParticleGroundCollision();
+    // groundColGen->particle = &particles[1];
+    // contactGenerators.push_back(groundColGen);
 }
 
 void World::checkCollisions() {

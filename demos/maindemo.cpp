@@ -19,11 +19,11 @@ void DebugDisplay(dough::Particle particle) {
     dough::Vector3 velocity = particle.getVelocity();
     dough::Vector3 force = particle.getAccumulatedForce();
     std::string str1 =  "position: " + std::to_string(position.x) +", "+ std::to_string(position.y) +", "+ std::to_string(position.z);
-    DrawText(str1.c_str(), 10, 10, 10, BLACK);
+    DrawText(str1.c_str(), 10, 10, 10, WHITE);
     std::string str2 =  "velocity: " + std::to_string(velocity.x) +", "+ std::to_string(velocity.y) +", "+ std::to_string(velocity.z);
-    DrawText(str2.c_str(), 10, 20, 10, BLACK);
+    DrawText(str2.c_str(), 10, 20, 10, WHITE);
     std::string str3 =  "force: " + std::to_string(force.x) +", "+ std::to_string(force.y) +", "+ std::to_string(force.z);
-    DrawText(str3.c_str(), 10, 30, 10, BLACK);
+    DrawText(str3.c_str(), 10, 30, 10, WHITE);
 }
 
 void VectorDisplay(dough::Particle particle) {
@@ -87,6 +87,7 @@ int main() {
                 count++;
             }
             EndMode3D();
+        DebugDisplay(world.particles[1]);
         EndDrawing();
         world.checkCollisions();
         world.step();

@@ -1,12 +1,13 @@
 #include "dough/pcontacts.hpp"
 #include <iostream>
+#include <string>
 
 using namespace dough;
 
 void ParticleContact::resolve(real time) {
     resolveVelocity(time);
-    //TODO: fix resolve Interpentration
-    //resolveInterpenetration(time);
+    //TODO: fix interpenetration code
+    resolveInterpenetration(time);
 }
 
 real ParticleContact::calculateSeparatingVelocity() const {
@@ -19,8 +20,6 @@ real ParticleContact::calculateSeparatingVelocity() const {
 }
 
 void ParticleContact::resolveVelocity(real duration) {
-    //TODO: For some reason if one of the particles has infite mass no veloicty changes are applied, figure out why
-    std::cout << "resolveVelocity called" << std::endl;
     real separatingVelocity = calculateSeparatingVelocity();
     if (separatingVelocity > 0) return;
     real newSepVelocity = -separatingVelocity * restitution;
@@ -40,12 +39,11 @@ void ParticleContact::resolveVelocity(real duration) {
     if (particle[1]) {
         particle[1]->setVelocity(particle[1]->getVelocity()+impulsePerIMass*-particle[1]->getInverseMass());
     }
-    // particle[0]->setVelocity(Vector3(0,10,0));
-    // particle[1]->setVelocity(Vector3(0,10,0));
 }
 
 void ParticleContact::resolveInterpenetration(real time) {
     if (penetration <= 0) return;
+    std::cout << "penetration: " + std::to_string(penetration) << std::endl;
     real totalInverseMass = particle[0]->getInverseMass();
     if (particle[1]) totalInverseMass += particle[1]->getInverseMass();
 
@@ -54,9 +52,18 @@ void ParticleContact::resolveInterpenetration(real time) {
     Vector3 movePerIMass = contactNormal * (penetration/totalInverseMass);
 
     //Add a particle movement array later to accumlate multiple movements
-    particle[0]->setPosition(movePerIMass*particle[0]->getInverseMass());
+    particleMovement[0] = movePerIMass * particle[0]->getInverseMass();
     if (particle[1]) {
-        particle[1]->setPosition(movePerIMass * particle[1]->getInverseMass());
+        particleMovement[1] = movePerIMass * -particle[1]->getInverseMass();
+    } else {
+        particleMovement[1].clear();
+    }
+    std::cout << "particleMovement 0: " + std::to_string(particleMovement[0].x) + std::to_string(particleMovement[0].y) + std::to_string(particleMovement[0].z) << std::endl;
+    std::cout << "particleMovement 1: " + std::to_string(particleMovement[1].x) + std::to_string(particleMovement[1].y) + std::to_string(particleMovement[1].z) << std::endl;
+    // Apply the penetration resolution
+    particle[0]->setPosition(particle[0]->getPosition() + particleMovement[0]);
+    if (particle[1]) {
+        particle[1]->setPosition(particle[1]->getPosition() + particleMovement[1]);
     }
 }
 
@@ -69,7 +76,7 @@ void ParticleContactResolver::setIterations(unsigned iterations) {
 }
 
 void ParticleContactResolver::resolveContacts(ParticleContact *contactArray, unsigned numContacts, real time) {
-    std::cout << "resolveContacts called" << std::endl;
+    //std::cout << "resolveContacts called" << std::endl;
     unsigned i;
     iterationsUsed = 0;
     while(iterationsUsed < iterations) {
@@ -84,7 +91,7 @@ void ParticleContactResolver::resolveContacts(ParticleContact *contactArray, uns
             }
         }
         if (maxIndex == numContacts) break;
-        std::cout << "Attempting to resolve" << std::endl;
+        //std::cout << "Attempting to resolve" << std::endl;
         contactArray[maxIndex].resolve(time);
         iterationsUsed++;
     }
@@ -92,11 +99,12 @@ void ParticleContactResolver::resolveContacts(ParticleContact *contactArray, uns
 
 unsigned ParticleGroundCollision::addContact(ParticleContact* contact, unsigned limit) const {
     if (particle->getPosition().y > 0) return 0;
+    std::cout << "ground coll" << std::endl;
     contact->particle[0] = particle;
 
     Vector3 normal = Vector3(0,1,0);
     contact->contactNormal = normal;
     contact->penetration = -particle->getPosition().y;
-    contact->restitution = 1;
+    contact->restitution = 0.9;
     return 1;
 }
