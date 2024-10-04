@@ -49,11 +49,11 @@ World::World(dough::real _timeStep, dough::real _Gravity, unsigned maxContacts, 
     particleCable2->maxLength = 7;
     particleCable2->restitution = 0.1;
     contactGenerators.push_back(particleCable2);
-    // ParticleRod* particleRod1 = new ParticleRod();
-    // particleRod1->particle[0] = &particles[0];
-    // particleRod1->particle[1] = &particles[3];
-    // particleRod1->length = 7;
-    // contactGenerators.push_back(particleRod1);
+    ParticleRod* particleRod1 = new ParticleRod();
+    particleRod1->particle[0] = &particles[0];
+    particleRod1->particle[1] = &particles[3];
+    particleRod1->length = 7;
+    contactGenerators.push_back(particleRod1);
     // ParticleGroundCollision* groundColGen = new ParticleGroundCollision();
     // groundColGen->particle = &particles[1];
     // contactGenerators.push_back(groundColGen);

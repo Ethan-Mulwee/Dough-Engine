@@ -93,6 +93,32 @@ void ParticleContactResolver::resolveContacts(ParticleContact *contactArray, uns
         if (maxIndex == numContacts) break;
         //std::cout << "Attempting to resolve" << std::endl;
         contactArray[maxIndex].resolve(time);
+
+        // Update the interpenetrations for all particles
+        Vector3 *move = contactArray[maxIndex].particleMovement;
+        for (i = 0; i < numContacts; i++)
+        {
+            if (contactArray[i].particle[0] == contactArray[maxIndex].particle[0])
+            {
+                contactArray[i].penetration -= move[0] * contactArray[i].contactNormal;
+            }
+            else if (contactArray[i].particle[0] == contactArray[maxIndex].particle[1])
+            {
+                contactArray[i].penetration -= move[1] * contactArray[i].contactNormal;
+            }
+            if (contactArray[i].particle[1])
+            {
+                if (contactArray[i].particle[1] == contactArray[maxIndex].particle[0])
+                {
+                    contactArray[i].penetration += move[0] * contactArray[i].contactNormal;
+                }
+                else if (contactArray[i].particle[1] == contactArray[maxIndex].particle[1])
+                {
+                    contactArray[i].penetration += move[1] * contactArray[i].contactNormal;
+                }
+            }
+        }
+
         iterationsUsed++;
     }
 }

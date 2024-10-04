@@ -41,19 +41,14 @@ unsigned ParticleRod::addContact(ParticleContact* contact, unsigned limit) const
     Vector3 normal = particle[1]->getPosition() - particle[0]->getPosition();
     normal.normalize();
 
-    contact->contactNormal = normal;
-    contact->penetration = currentLen - length;
+    if (currentLen > length) {
+        contact->contactNormal = normal;
+        contact->penetration = currentLen - length;
+    } else {
+        contact->contactNormal = normal * -1;
+        contact->penetration = length - currentLen;
+    }
     contact->restitution = 0;
 
-    unsigned used = 1;
-    contact += used;
-
-    contact->particle[0] = particle[0];
-    contact->particle[1] = particle[1];
-
-    contact->contactNormal = normal * -1;
-    contact->penetration = length - currentLen;
-    contact->restitution = 0;
-
-    return 2;
+    return 1;
 }
