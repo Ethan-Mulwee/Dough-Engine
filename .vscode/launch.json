@@ -10,7 +10,7 @@
             "request": "launch",
             "cwd": "${fileDirname}",
             "miDebuggerPath": "/usr/bin/gdb",
-            "program": "${workspaceRoot}/build/Main-DEMO"
+            "program": "${workspaceRoot}/build/ParticleCollisions-DEMO"
         }
     ]
 }

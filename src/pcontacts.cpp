@@ -1,4 +1,5 @@
 #include "dough/pcontacts.hpp"
+#include <iostream>
 
 using namespace dough;
 
@@ -117,6 +118,32 @@ void ParticleContactResolver::resolveContacts(ParticleContact *contactArray, uns
     }
 }
 
+unsigned ParticleParticleCollison::addContact(ParticleContact* contact, unsigned limit) const {
+    unsigned used = 0;
+    auto i = particles->begin();
+    for (; i != particles->end(); i++) {
+        auto j = particles->begin();
+        for (; j != particles->end(); j++) {
+            if (i == j) continue;
+            Vector3 vector = i->getPosition() - j->getPosition();
+            Vector3 normal = vector;
+            normal.normalize();
+            real distance = real_abs(vector.magnitude());
+            if (distance < radius) {
+                contact->particle[0] = i.base();
+                contact->particle[1] = j.base();
+                contact->contactNormal = normal;
+                contact->restitution = 1;
+                used++;
+                contact++;
+                // std::cout << "test" << std::endl;
+            }
+            // std::cout << "loop ran" << std::endl;
+        }
+    }
+    return used;
+}
+
 unsigned ParticleGroundCollision::addContact(ParticleContact* contact, unsigned limit) const {
     if (particle->getPosition().y > 0) return 0;
     contact->particle[0] = particle;
@@ -128,6 +155,18 @@ unsigned ParticleGroundCollision::addContact(ParticleContact* contact, unsigned 
     return 1;
 }
 
-unsigned ParticleParticleCollison::addContact(ParticleContact* contact, unsigned limit) const {
-    
+unsigned ParticlesGroundCollision::addContact(ParticleContact* contact, unsigned limit) const {
+    unsigned used = 0;
+    auto i = particles->begin();
+    for (; i != particles->end(); i++) {
+        if (i->getPosition().y < 0) {
+            contact->particle[0] = i.base();
+            contact->contactNormal = Vector3(0,1,0);
+            contact->restitution = 1;
+            contact->penetration = i->getPosition().y;
+            contact++;
+            used++;
+        }
+    }
+    return used;
 }

@@ -47,9 +47,13 @@ int main() {
     camera.fovy = 60.0f;
     camera.projection = CAMERA_PERSPECTIVE;
 
-    dough::ParticleGroundCollision* groundCol = new dough::ParticleGroundCollision();
-    groundCol->particle = &world.particles[1];
+    dough::ParticlesGroundCollision* groundCol = new dough::ParticlesGroundCollision();
+    groundCol->particles = &world.particles;
     world.contactGenerators.push_back(groundCol);
+    dough::ParticleParticleCollison* particleCol = new dough::ParticleParticleCollison();
+    particleCol->particles = &world.particles;
+    particleCol->radius = 0.5;
+    world.contactGenerators.push_back(particleCol);
 
     while(!WindowShouldClose()) {
         Ray ray = GetScreenToWorldRay(GetMousePosition(), camera);

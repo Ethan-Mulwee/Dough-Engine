@@ -2,6 +2,7 @@
 #define DOUGH_PCONTACTS_H
 
 #include "particle.hpp"
+#include <vector>
 
 namespace dough {
     class PraticleContactResolver;
@@ -44,13 +45,23 @@ namespace dough {
     class ParticleParticleCollison : public ParticleContactGenerator {
         public:
         real radius;
-        virtual unsigned addContact(ParticleContact* contact, unsigned limit) const = 0;
+        std::vector<Particle>* particles;
+
+        virtual unsigned addContact(ParticleContact* contact, unsigned limit) const;
     };
 
     class ParticleGroundCollision : public ParticleContactGenerator {
         public:
         real radius;
         Particle* particle;
+        virtual unsigned addContact(ParticleContact* contact, unsigned limit) const;
+    };
+
+    class ParticlesGroundCollision : public ParticleContactGenerator {
+        public:
+        real radius;
+        std::vector<Particle>* particles;
+
         virtual unsigned addContact(ParticleContact* contact, unsigned limit) const;
     };
 }
