@@ -1,12 +1,9 @@
 #include "dough/pcontacts.hpp"
-#include <iostream>
-#include <string>
 
 using namespace dough;
 
 void ParticleContact::resolve(real time) {
     resolveVelocity(time);
-    //TODO: fix interpenetration code
     resolveInterpenetration(time);
 }
 
@@ -43,7 +40,6 @@ void ParticleContact::resolveVelocity(real duration) {
 
 void ParticleContact::resolveInterpenetration(real time) {
     if (penetration <= 0) return;
-    std::cout << "penetration: " + std::to_string(penetration) << std::endl;
     real totalInverseMass = particle[0]->getInverseMass();
     if (particle[1]) totalInverseMass += particle[1]->getInverseMass();
 
@@ -58,8 +54,6 @@ void ParticleContact::resolveInterpenetration(real time) {
     } else {
         particleMovement[1].clear();
     }
-    std::cout << "particleMovement 0: " + std::to_string(particleMovement[0].x) + std::to_string(particleMovement[0].y) + std::to_string(particleMovement[0].z) << std::endl;
-    std::cout << "particleMovement 1: " + std::to_string(particleMovement[1].x) + std::to_string(particleMovement[1].y) + std::to_string(particleMovement[1].z) << std::endl;
     // Apply the penetration resolution
     particle[0]->setPosition(particle[0]->getPosition() + particleMovement[0]);
     if (particle[1]) {
@@ -125,7 +119,6 @@ void ParticleContactResolver::resolveContacts(ParticleContact *contactArray, uns
 
 unsigned ParticleGroundCollision::addContact(ParticleContact* contact, unsigned limit) const {
     if (particle->getPosition().y > 0) return 0;
-    std::cout << "ground coll" << std::endl;
     contact->particle[0] = particle;
 
     Vector3 normal = Vector3(0,1,0);
@@ -133,4 +126,8 @@ unsigned ParticleGroundCollision::addContact(ParticleContact* contact, unsigned 
     contact->penetration = -particle->getPosition().y;
     contact->restitution = 0.9;
     return 1;
+}
+
+unsigned ParticleParticleCollison::addContact(ParticleContact* contact, unsigned limit) const {
+    
 }

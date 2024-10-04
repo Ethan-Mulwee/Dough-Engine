@@ -35,28 +35,6 @@ World::World(dough::real _timeStep, dough::real _Gravity, unsigned maxContacts, 
     //     i->setVelocity(Vector3(rand()%2, rand()%2, rand()%2));
     //     //registry.add(i.base(), gravityFG);
     // }
-    // ParticleCable particleCable = ParticleCable();
-    // particleCable.particle[0] = &particles[0];
-    ParticleCable* particleCable1 = new ParticleCable();
-    particleCable1->particle[0] = &particles[0];
-    particleCable1->particle[1] = &particles[1];
-    particleCable1->maxLength = 10;
-    particleCable1->restitution = 0.3;
-    contactGenerators.push_back(particleCable1);
-    ParticleCable* particleCable2 = new ParticleCable();
-    particleCable2->particle[0] = &particles[0];
-    particleCable2->particle[1] = &particles[2];
-    particleCable2->maxLength = 7;
-    particleCable2->restitution = 0.1;
-    contactGenerators.push_back(particleCable2);
-    ParticleRod* particleRod1 = new ParticleRod();
-    particleRod1->particle[0] = &particles[0];
-    particleRod1->particle[1] = &particles[3];
-    particleRod1->length = 7;
-    contactGenerators.push_back(particleRod1);
-    // ParticleGroundCollision* groundColGen = new ParticleGroundCollision();
-    // groundColGen->particle = &particles[1];
-    // contactGenerators.push_back(groundColGen);
 }
 
 void World::checkCollisions() {

@@ -47,23 +47,9 @@ int main() {
     camera.fovy = 60.0f;
     camera.projection = CAMERA_PERSPECTIVE;
 
-    dough::ParticleCable* particleCable1 = new dough::ParticleCable();
-    particleCable1->particle[0] = &world.particles[0];
-    particleCable1->particle[1] = &world.particles[1];
-    particleCable1->maxLength = 10;
-    particleCable1->restitution = 0.3;
-    world.contactGenerators.push_back(particleCable1);
-    dough::ParticleCable* particleCable2 = new dough::ParticleCable();
-    particleCable2->particle[0] = &world.particles[0];
-    particleCable2->particle[1] = &world.particles[2];
-    particleCable2->maxLength = 7;
-    particleCable2->restitution = 0.1;
-    world.contactGenerators.push_back(particleCable2);
-    dough::ParticleRod* particleRod1 = new dough::ParticleRod();
-    particleRod1->particle[0] = &world.particles[0];
-    particleRod1->particle[1] = &world.particles[3];
-    particleRod1->length = 7;
-    world.contactGenerators.push_back(particleRod1);
+    dough::ParticleGroundCollision* groundCol = new dough::ParticleGroundCollision();
+    groundCol->particle = &world.particles[1];
+    world.contactGenerators.push_back(groundCol);
 
     while(!WindowShouldClose()) {
         Ray ray = GetScreenToWorldRay(GetMousePosition(), camera);
