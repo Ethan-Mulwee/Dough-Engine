@@ -130,7 +130,7 @@ unsigned ParticlesParticleCollison::addContact(ParticleContact* contact, unsigne
             Vector3 normal = vector;
             normal.normalize();
             real distance = real_abs(vector.magnitude());
-            if (distance < radius) {
+            if (distance < radius*2) {
                 contact->particle[0] = i.base();
                 contact->particle[1] = j.base();
                 contact->contactNormal = normal;

@@ -13,7 +13,7 @@ World::World(dough::real _timeStep, dough::real _Gravity, unsigned maxContacts, 
 
     timeStep = _timeStep;
     dough::Vector3 Gravity = dough::Vector3(0,_Gravity,0);
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 30; i++) {
         particles.push_back(Particle());
         particles[i].setMass(1);
         particles[i].setAcceleration(Vector3(0,-9.81,0));
