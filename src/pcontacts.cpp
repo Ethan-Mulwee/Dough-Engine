@@ -134,10 +134,13 @@ unsigned ParticlesParticleCollison::addContact(ParticleContact* contact, unsigne
                 contact->particle[0] = i.base();
                 contact->particle[1] = j.base();
                 contact->contactNormal = normal;
-                contact->restitution = 1;
+                contact->restitution = restitution;
                 used++;
                 contact++;
-                // std::cout << "test" << std::endl;
+                if ((limit - used) <= 0) {
+                    std::cout << "internal contact limit reached, returning: " + std::to_string(used) << std::endl;
+                    return used;
+                }
             }
             // std::cout << "loop ran" << std::endl;
         }
@@ -155,7 +158,7 @@ unsigned ParticleGroundCollision::addContact(ParticleContact* contact, unsigned 
     contact->penetration = -(particle->getPosition().y-radius);
     //std::cout << "position: " + std::to_string(particle->getPosition().y) << std::endl;
     //std::cout << "penetration: " + std::to_string(-(particle->getPosition().y-radius)) << std::endl;
-    contact->restitution = 0.9;
+    contact->restitution = restitution;
     return 1;
 }
 
@@ -168,9 +171,13 @@ unsigned ParticlesGroundCollision::addContact(ParticleContact* contact, unsigned
         contact->particle[1] = nullptr;
         contact->contactNormal = Vector3(0,1,0);
         contact->penetration = -(i->getPosition().y-radius);
-        contact->restitution = 0.9;
+        contact->restitution = restitution;
         contact++;
         used++;
+        if ((limit - used) <= 0) {
+            std::cout << "internal contact limit reached, returning: " + std::to_string(used) << std::endl;
+            return used;
+        }
         //i->setPosition(Vector3(i->getPosition().x, 0, i->getPosition().z));
         // std::cout << "Penetration: " + std::to_string(-i->getPosition().y) << std::endl;
     }

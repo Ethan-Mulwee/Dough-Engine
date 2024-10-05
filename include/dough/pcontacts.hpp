@@ -45,15 +45,17 @@ namespace dough {
     class ParticlesParticleCollison : public ParticleContactGenerator {
         public:
         real radius;
+        real restitution;
         std::vector<Particle>* particles;
 
         virtual unsigned addContact(ParticleContact* contact, unsigned limit) const;
     };
-    
+
 
     class ParticleGroundCollision : public ParticleContactGenerator {
         public:
         real radius;
+        real restitution;
         Particle* particle;
         virtual unsigned addContact(ParticleContact* contact, unsigned limit) const;
     };
@@ -61,6 +63,7 @@ namespace dough {
     class ParticlesGroundCollision : public ParticleContactGenerator {
         public:
         real radius;
+        real restitution;
         std::vector<Particle>* particles;
 
         virtual unsigned addContact(ParticleContact* contact, unsigned limit) const;

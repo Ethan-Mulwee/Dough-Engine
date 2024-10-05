@@ -57,10 +57,12 @@ int main() {
     dough::ParticlesGroundCollision* groundCol = new dough::ParticlesGroundCollision();
     groundCol->particles = &world.particles;
     groundCol->radius = 0.5;
+    groundCol->restitution = 0.2;
     world.contactGenerators.push_back(groundCol);
     dough::ParticlesParticleCollison* particleCol = new dough::ParticlesParticleCollison();
     particleCol->particles = &world.particles;
     particleCol->radius = 0.5;
+    particleCol->restitution = 0.5;
     world.contactGenerators.push_back(particleCol);
 
     while(!WindowShouldClose()) {
