@@ -35,7 +35,7 @@ void CameraControl() {
 
 }
 
-World world = World(((float)1/60), -9.81, 100, 4);
+dough::World world = dough::World(((float)1/60), -9.81, 1000, 10, 60);
 
 int main() {
     SetTargetFPS(60);
@@ -48,12 +48,9 @@ int main() {
     camera.projection = CAMERA_PERSPECTIVE;
 
     auto i = world.particles.begin();
-    // for (; i != world.particles.end(); i++) {
-    //     dough::ParticleGroundCollision* groundCol = new dough::ParticleGroundCollision();
-    //     groundCol->particle = (i.base());
-    //     groundCol->radius = 0.5;
-    //     world.contactGenerators.push_back(groundCol);
-    // }
+    for (; i != world.particles.end(); i++) {
+        i->setAcceleration(dough::Vector3(0,-9.81,0));
+    }
     dough::ParticlesGroundCollision* groundCol = new dough::ParticlesGroundCollision();
     groundCol->particles = &world.particles;
     groundCol->radius = 0.5;
@@ -104,7 +101,6 @@ int main() {
             EndMode3D();
         DebugDisplay(world.particles[1]);
         EndDrawing();
-        world.checkCollisions();
         world.step();
     }
     CloseWindow();

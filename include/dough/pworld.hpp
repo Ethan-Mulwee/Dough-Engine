@@ -3,26 +3,27 @@
 #include "dough/plinks.hpp"
 #include <vector>
 
+namespace dough {
+    class World {
+        public:
+        typedef std::vector<dough::Particle> Particles;
+        typedef std::vector<dough::ParticleContactGenerator*> ContactGenerators;
 
-class World {
-    public:
-    typedef std::vector<dough::Particle> Particles;
-    typedef std::vector<dough::ParticleContactGenerator*> ContactGenerators;
-
-    protected:
-    dough::ParticleForceRegistry registry;
-    dough::ParticleContactResolver resolver;
-    dough::ParticleContact *contacts;
-    dough::real timeStep;
-    unsigned maxContacts;
-    public:
-    ContactGenerators contactGenerators;
-    Particles particles;
-    World(dough::real _timeStep, dough::real _Gravity, unsigned maxContacts, unsigned iterations);
-    void updateForces();
-    void checkCollisions();
-    void step();
-    unsigned generateContacts();
-    Particles& getParticles();
-    ContactGenerators& getContactGenerators();
-};
+        protected:
+        ParticleForceRegistry registry;
+        ParticleContactResolver resolver;
+        ParticleContact *contacts;
+        real timeStep;
+        unsigned maxContacts;
+        public:
+        ContactGenerators contactGenerators;
+        Particles particles;
+        World(real _timeStep, real _Gravity, unsigned maxContacts, unsigned iterations, unsigned particleCount);
+        void updateForces();
+        void step();
+        unsigned generateContacts();
+        Particles& getParticles();
+        ContactGenerators& getContactGenerators();
+        ParticleForceRegistry& getForceRegistry();
+    };
+}

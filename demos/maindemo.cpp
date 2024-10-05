@@ -35,7 +35,7 @@ void CameraControl() {
 
 }
 
-World world = World(((float)1/60), -9.81, 100, 4);
+dough::World world = dough::World(((float)1/60), -9.81, 100, 4, 20);
 
 int main() {
     SetTargetFPS(60);
@@ -104,7 +104,6 @@ int main() {
             EndMode3D();
         DebugDisplay(world.particles[1]);
         EndDrawing();
-        world.checkCollisions();
         world.step();
     }
     CloseWindow();
