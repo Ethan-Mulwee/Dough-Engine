@@ -47,10 +47,18 @@ int main() {
     camera.fovy = 60.0f;
     camera.projection = CAMERA_PERSPECTIVE;
 
+    auto i = world.particles.begin();
+    // for (; i != world.particles.end(); i++) {
+    //     dough::ParticleGroundCollision* groundCol = new dough::ParticleGroundCollision();
+    //     groundCol->particle = (i.base());
+    //     groundCol->radius = 0.5;
+    //     world.contactGenerators.push_back(groundCol);
+    // }
     dough::ParticlesGroundCollision* groundCol = new dough::ParticlesGroundCollision();
     groundCol->particles = &world.particles;
+    groundCol->radius = 0.5;
     world.contactGenerators.push_back(groundCol);
-    dough::ParticleParticleCollison* particleCol = new dough::ParticleParticleCollison();
+    dough::ParticlesParticleCollison* particleCol = new dough::ParticlesParticleCollison();
     particleCol->particles = &world.particles;
     particleCol->radius = 0.5;
     world.contactGenerators.push_back(particleCol);

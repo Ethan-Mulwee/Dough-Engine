@@ -42,13 +42,14 @@ namespace dough {
         virtual unsigned addContact(ParticleContact* contact, unsigned limit) const = 0;
     };
 
-    class ParticleParticleCollison : public ParticleContactGenerator {
+    class ParticlesParticleCollison : public ParticleContactGenerator {
         public:
         real radius;
         std::vector<Particle>* particles;
 
         virtual unsigned addContact(ParticleContact* contact, unsigned limit) const;
     };
+    
 
     class ParticleGroundCollision : public ParticleContactGenerator {
         public:

@@ -13,18 +13,21 @@ World::World(dough::real _timeStep, dough::real _Gravity, unsigned maxContacts, 
 
     timeStep = _timeStep;
     dough::Vector3 Gravity = dough::Vector3(0,_Gravity,0);
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 3; i++) {
         particles.push_back(Particle());
+        particles[i].setMass(1);
+        particles[i].setAcceleration(Vector3(0,-9.81,0));
+        particles[i].setPosition(Vector3(rand()%5, rand()%5, rand()%5));
     }
-    particles[0].setMass(1000);
-    particles[1].setMass(1);
-    particles[0].setVelocity(Vector3(0,0,0));
-    particles[0].setPosition(Vector3(0,7,0));
-    particles[1].setPosition(Vector3(0,2,0));
-    particles[1].setAcceleration(Vector3(0,-9.81,0));
-    particles[2].setMass(2);
-    particles[2].setAcceleration(Vector3(0,-9.81,0));
-    particles[3].setMass(1);
+    // particles[0].setMass(1000);
+    // particles[1].setMass(1);
+    // particles[0].setVelocity(Vector3(0,0,0));
+    // particles[0].setPosition(Vector3(0,7,0));
+    // particles[1].setPosition(Vector3(0,2,0));
+    // particles[1].setAcceleration(Vector3(0,-9.81,0));
+    // particles[2].setMass(2);
+    // particles[2].setAcceleration(Vector3(0,-9.81,0));
+    // particles[3].setMass(1);
    // particles[3].setAcceleration(Vector3(0,-9.81,0));
     //particles[1].setAcceleration(Vector3(0,-10,0));
     // auto i = particles.begin();
@@ -89,7 +92,10 @@ unsigned World::generateContacts() {
         limit -= used;
         nextContact += used;
 
-        if (limit <= 0) break;
+        if (limit <= 0) {
+            std::cout << "contact limit reached" << std::endl;
+            break;
+        }
     }
     return maxContacts - limit;
 }

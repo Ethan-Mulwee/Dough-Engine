@@ -1,5 +1,6 @@
 #include "dough/pcontacts.hpp"
 #include <iostream>
+#include <string>
 
 using namespace dough;
 
@@ -118,7 +119,7 @@ void ParticleContactResolver::resolveContacts(ParticleContact *contactArray, uns
     }
 }
 
-unsigned ParticleParticleCollison::addContact(ParticleContact* contact, unsigned limit) const {
+unsigned ParticlesParticleCollison::addContact(ParticleContact* contact, unsigned limit) const {
     unsigned used = 0;
     auto i = particles->begin();
     for (; i != particles->end(); i++) {
@@ -145,12 +146,15 @@ unsigned ParticleParticleCollison::addContact(ParticleContact* contact, unsigned
 }
 
 unsigned ParticleGroundCollision::addContact(ParticleContact* contact, unsigned limit) const {
-    if (particle->getPosition().y > 0) return 0;
+    if (particle->getPosition().y > 0+radius) return 0;
     contact->particle[0] = particle;
+    contact->particle[1] = nullptr;
 
     Vector3 normal = Vector3(0,1,0);
     contact->contactNormal = normal;
-    contact->penetration = -particle->getPosition().y;
+    contact->penetration = -(particle->getPosition().y-radius);
+    //std::cout << "position: " + std::to_string(particle->getPosition().y) << std::endl;
+    //std::cout << "penetration: " + std::to_string(-(particle->getPosition().y-radius)) << std::endl;
     contact->restitution = 0.9;
     return 1;
 }
@@ -159,14 +163,16 @@ unsigned ParticlesGroundCollision::addContact(ParticleContact* contact, unsigned
     unsigned used = 0;
     auto i = particles->begin();
     for (; i != particles->end(); i++) {
-        if (i->getPosition().y < 0) {
-            contact->particle[0] = i.base();
-            contact->contactNormal = Vector3(0,1,0);
-            contact->restitution = 1;
-            contact->penetration = i->getPosition().y;
-            contact++;
-            used++;
-        }
+        if (i->getPosition().y > 0 + radius) continue;
+        contact->particle[0] = i.base();
+        contact->particle[1] = nullptr;
+        contact->contactNormal = Vector3(0,1,0);
+        contact->penetration = -(i->getPosition().y-radius);
+        contact->restitution = 0.9;
+        contact++;
+        used++;
+        //i->setPosition(Vector3(i->getPosition().x, 0, i->getPosition().z));
+        // std::cout << "Penetration: " + std::to_string(-i->getPosition().y) << std::endl;
     }
     return used;
 }
