@@ -2,6 +2,24 @@
 
 using namespace dough;
 
+void RigidBody::integrate(real time) {
+    clearAccumlators();
+}
+
+void RigidBody::clearAccumlators() {
+    forceAccum.clear();
+    torqueAccum.clear();
+}
+
+void RigidBody::addForceAtPoint(const Vector3 &force, const Vector3 &point) {
+    Vector3 pt = point;
+    pt -= position;
+    forceAccum += force;
+    torqueAccum += pt % force;
+
+    isAwake = true;
+}
+
 void RigidBody::setInteriaTensor(const Matrix3 &interiaTensor) {
     inverseInertiaTensor.setInverse(interiaTensor);
 }

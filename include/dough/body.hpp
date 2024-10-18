@@ -14,6 +14,8 @@ namespace dough {
         Vector3 forceAccum;
         Vector3 torqueAccum;
 
+
+
         bool isAwake;
 
         public:
@@ -24,6 +26,10 @@ namespace dough {
         void clearAccumlators();
 
         void addForce(const Vector3 &force);
+
+        void addForceAtPoint(const Vector3 &force, const Vector3 &point);
+
+        void addForceAtBodyPoint(const Vector3 &force, const Vector3 &point);
     };
 }
 
