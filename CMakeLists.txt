@@ -14,6 +14,10 @@ target_link_libraries(ParticleCollisions-DEMO PUBLIC /usr/local/lib/libraylib.so
 add_executable(ParticleGravity-DEMO demos/pgravity-demo.cpp ${SRC_FILES})
 target_include_directories(ParticleGravity-DEMO PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(ParticleGravity-DEMO PUBLIC /usr/local/lib/libraylib.so)
+
+add_executable(SoftBody-DEMO demos/softbody-demo.cpp ${SRC_FILES})
+target_include_directories(SoftBody-DEMO PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(SoftBody-DEMO PUBLIC /usr/local/lib/libraylib.so)
 #file(GLOB DEMO_SOURCES demo/*.cpp)
 #foreach(testsourcefile ${DEMO_SOURCES})
 #    get_filename_component( testname ${testsourcefile} NAME_WE )

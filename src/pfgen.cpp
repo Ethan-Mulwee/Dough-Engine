@@ -34,7 +34,7 @@ void ParticleSpring::updateForce(Particle* particle, real time) {
     force -= other->getPosition();
 
     real magnitude = force.magnitude();
-    magnitude = real_abs(magnitude - restLength);
+    magnitude = (magnitude - restLength);
     magnitude *= springConstant;
     
     force.normalize();

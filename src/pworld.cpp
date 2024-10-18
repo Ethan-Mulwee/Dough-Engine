@@ -16,8 +16,6 @@ World::World(dough::real _timeStep, dough::real _Gravity, unsigned maxContacts, 
     for (int i = 0; i < particleCount; i++) {
         particles.push_back(Particle());
         particles[i].setMass(1);
-        //particles[i].setAcceleration(Vector3(0,-9.81,0));
-        particles[i].setPosition(Vector3(rand()%5+((rand()%10)*0.1), rand()%10+((rand()%10)*0.1), rand()%5+((rand()%10)*0.1)));
         particles[i].setDamping(0.999);
     }
 }

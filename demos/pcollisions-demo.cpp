@@ -50,6 +50,7 @@ int main() {
     auto i = world.particles.begin();
     for (; i != world.particles.end(); i++) {
         i->setAcceleration(dough::Vector3(0,-9.81,0));
+        i->setPosition(dough::Vector3(rand()%5+((rand()%10)*0.1), rand()%10+((rand()%10)*0.1), rand()%5+((rand()%10)*0.1)));
     }
     dough::ParticlesGroundCollision* groundCol = new dough::ParticlesGroundCollision();
     groundCol->particles = &world.particles;

@@ -35,7 +35,7 @@ void CameraControl() {
 
 }
 
-dough::World world = dough::World(((float)1/60), -9.81, 100, 4, 20);
+dough::World world = dough::World(((float)1/60), -9.81, 100, 4, 1);
 
 int main() {
     SetTargetFPS(60);
@@ -47,23 +47,17 @@ int main() {
     camera.fovy = 60.0f;
     camera.projection = CAMERA_PERSPECTIVE;
 
-    dough::ParticleCable* particleCable1 = new dough::ParticleCable();
-    particleCable1->particle[0] = &world.particles[0];
-    particleCable1->particle[1] = &world.particles[1];
-    particleCable1->maxLength = 10;
-    particleCable1->restitution = 0.3;
-    world.contactGenerators.push_back(particleCable1);
-    dough::ParticleCable* particleCable2 = new dough::ParticleCable();
-    particleCable2->particle[0] = &world.particles[0];
-    particleCable2->particle[1] = &world.particles[2];
-    particleCable2->maxLength = 7;
-    particleCable2->restitution = 0.1;
-    world.contactGenerators.push_back(particleCable2);
-    dough::ParticleRod* particleRod1 = new dough::ParticleRod();
-    particleRod1->particle[0] = &world.particles[0];
-    particleRod1->particle[1] = &world.particles[3];
-    particleRod1->length = 7;
-    world.contactGenerators.push_back(particleRod1);
+    world.particles[0].setInverseMass(2);
+
+
+    Model model;
+
+    model = LoadModelFromMesh(GenMeshCube(1,1,1));
+    Matrix transform = MatrixMultiply(MatrixIdentity(), MatrixRotateX(PI/4));
+    Quaternion quaternion = Quaternion{1,2,3,4};
+    quaternion = QuaternionNormalize(quaternion);
+    Matrix transform2 = QuaternionToMatrix(quaternion);
+    model.transform = transform2;
 
     while(!WindowShouldClose()) {
         Ray ray = GetScreenToWorldRay(GetMousePosition(), camera);
@@ -82,6 +76,7 @@ int main() {
             BeginMode3D(camera);
             DrawGrid(10, 2);
             DrawSphere(collision.point, 0.5, WHITE);
+            DrawModel(model, ConvertToRay(world.particles[0].getPosition()), 1, WHITE);
             int count = 0;
             auto i = world.particles.begin();
             for (; i != world.particles.end(); i++) {
@@ -102,7 +97,6 @@ int main() {
                 count++;
             }
             EndMode3D();
-        DebugDisplay(world.particles[1]);
         EndDrawing();
         world.step();
     }
