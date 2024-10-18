@@ -36,6 +36,15 @@ namespace dough {
         Vector3 operator-(const Vector3 vector) {
             return Vector3(x-vector.x, y-vector.y, z-vector.z);
         }
+
+        //Cross product
+        Vector3 operator% (const Vector3 vector) {
+            return Vector3(
+                y*vector.z-z*vector.y,
+                z*vector.x-x*vector.z,
+                x*vector.y-y*vector.x
+            );
+        }
         void invert() {
             x = -x;
             y = -y;
