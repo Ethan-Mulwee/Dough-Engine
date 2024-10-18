@@ -3,7 +3,23 @@
 using namespace dough;
 
 void RigidBody::integrate(real time) {
+    
+    lastFrameAcceleration = acceleration;
+    lastFrameAcceleration += (forceAccum * inverseMass);
+
+    // Vector3 angularAcceleration = 
+
+    velocity += (lastFrameAcceleration*time);
+
+    position += velocity*time;
+
+    // rotation += ()
+    
     clearAccumlators();
+}
+
+void RigidBody::addForce(const Vector3 &force) {
+    forceAccum += force;
 }
 
 void RigidBody::clearAccumlators() {

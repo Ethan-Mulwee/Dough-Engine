@@ -3,6 +3,7 @@
 #include <raymath.h>
 #include <string>
 #include "dough/pworld.hpp"
+#include "dough/body.hpp"
 #include "raylib-dough.hpp"
 
 using namespace RaytoDoh;
@@ -47,55 +48,30 @@ int main() {
     camera.fovy = 60.0f;
     camera.projection = CAMERA_PERSPECTIVE;
 
-    world.particles[0].setInverseMass(2);
 
+    // Model model;
 
-    Model model;
-
-    model = LoadModelFromMesh(GenMeshCube(1,1,1));
-    Matrix transform = MatrixMultiply(MatrixIdentity(), MatrixRotateX(PI/4));
-    Quaternion quaternion = Quaternion{1,2,3,4};
-    quaternion = QuaternionNormalize(quaternion);
-    Matrix transform2 = QuaternionToMatrix(quaternion);
-    model.transform = transform2;
+    // model = LoadModelFromMesh(GenMeshCube(1,1,1));
+    // Matrix transform = MatrixMultiply(MatrixIdentity(), MatrixRotateX(PI/4));
+    // Quaternion quaternion = Quaternion{1,2,3,4};
+    // quaternion = QuaternionNormalize(quaternion);
+    // Matrix transform2 = QuaternionToMatrix(quaternion);
+    // model.transform = transform2;
+    dough::RigidBody body;
+    body.setInverseMass(3);
 
     while(!WindowShouldClose()) {
-        Ray ray = GetScreenToWorldRay(GetMousePosition(), camera);
-        RayCollision collision = GetRayCollisionQuad(ray, Vector3{-1000,0,-1000}, Vector3{-1000,0,1000}, Vector3{1000,0,1000}, Vector3{1000,0,-1000});
+        // Ray ray = GetScreenToWorldRay(GetMousePosition(), camera);
+        // RayCollision collision = GetRayCollisionMesh(ray, model.meshes[0], transform2);
+        // RayCollision collision2 = GetRayCollisionQuad(ray, Vector3{-1000,0,-1000}, Vector3{-1000,0,1000}, Vector3{1000,0,1000}, Vector3{1000,0,-1000});
+        body.addForce(dough::Vector3(0,-4,4));
+        body.integrate(0.1);
         UpdateCamera(&camera, CAMERA_PERSPECTIVE);
-        world.updateForces();
-        auto j = world.particles.begin();
-        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
-            for (; j != world.particles.end(); j++) {
-                dough::Vector3 point = ConvertToDoh(collision.point);
-                j->addForce((point-j->getPosition())); //*mass to get equal acceleration on all particles
-            }
-        }
         BeginDrawing();
             ClearBackground(Color{35, 35, 35, 255});
             BeginMode3D(camera);
             DrawGrid(10, 2);
-            DrawSphere(collision.point, 0.5, WHITE);
-            DrawModel(model, ConvertToRay(world.particles[0].getPosition()), 1, WHITE);
-            int count = 0;
-            auto i = world.particles.begin();
-            for (; i != world.particles.end(); i++) {
-                Color color;
-                switch (count % 4)
-                {
-                    case 0:
-                    color = RED; break;
-                    case 1:
-                    color = BLUE; break;
-                    case 2:
-                    color = PURPLE; break;
-                    case 3:
-                    color = ORANGE; break;
-                }
-                DrawSphere(ConvertToRay(i->getPosition()), 0.5, color); //(i->getMass())/10
-                VectorDisplay(*i.base());
-                count++;
-            }
+            DrawSphere(ConvertToRay(body.getPosition()), 1, WHITE);
             EndMode3D();
         EndDrawing();
         world.step();
