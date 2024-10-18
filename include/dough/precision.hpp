@@ -11,6 +11,10 @@ namespace dough {
     #define real_pow powf
     #define real_abs fabsf
     #define REAL_MAX DBL_MAX
+
+    /** Defines the number e on which 1+e == 1 **/
+    //???
+    #define real_epsilon FLT_EPSILON
 }
 
 #endif

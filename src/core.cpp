@@ -2,7 +2,18 @@
 
 using namespace dough;
 
-void Matrix4::setInverse(const Matrix4 &m) {
+real Matrix4::getDeterminant() const
+{
+    return -data[8]*data[5]*data[2]+
+        data[4]*data[9]*data[2]+
+        data[8]*data[1]*data[6]-
+        data[0]*data[9]*data[6]-
+        data[4]*data[1]*data[10]+
+        data[0]*data[5]*data[10];
+}
+
+void Matrix4::setInverse(const Matrix4 &m)
+{
     // Make sure the determinant is non-zero.
     real det = getDeterminant();
     if (det == 0) return;
@@ -40,12 +51,11 @@ void Matrix4::setInverse(const Matrix4 &m) {
                -m.data[0]*m.data[5]*m.data[11])*det;
 }
 
-real Matrix4::getDeterminant() const
+Matrix3 Matrix3::linearInterpolate(const Matrix3& a, const Matrix3& b, real prop)
 {
-    return -data[8]*data[5]*data[2]+
-        data[4]*data[9]*data[2]+
-        data[8]*data[1]*data[6]-
-        data[0]*data[9]*data[6]-
-        data[4]*data[1]*data[10]+
-        data[0]*data[5]*data[10];
+    Matrix3 result;
+    for (unsigned i = 0; i < 9; i++) {
+        result.data[i] = a.data[i] * (1-prop) + b.data[i] * prop;
+    }
+    return result;
 }
