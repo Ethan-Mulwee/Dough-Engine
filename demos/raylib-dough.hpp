@@ -8,4 +8,7 @@ namespace RaytoDoh {
     dough::Vector3 ConvertToDoh(Vector3 vector) {
         return dough::Vector3(vector.x, vector.y, vector.z);
     }
+    Quaternion ConvertToRay(dough::Quaternion quaternion) {
+        return Quaternion{quaternion.i, quaternion.j, quaternion.k, quaternion.r};
+    }
 };

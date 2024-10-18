@@ -49,16 +49,19 @@ int main() {
     camera.projection = CAMERA_PERSPECTIVE;
 
 
-    // Model model;
+    Model model;
 
-    // model = LoadModelFromMesh(GenMeshCube(1,1,1));
-    // Matrix transform = MatrixMultiply(MatrixIdentity(), MatrixRotateX(PI/4));
+    model = LoadModelFromMesh(GenMeshCube(1,1,1));
+    Matrix transform = MatrixMultiply(MatrixIdentity(), MatrixRotateX(PI/4));
     // Quaternion quaternion = Quaternion{1,2,3,4};
     // quaternion = QuaternionNormalize(quaternion);
-    // Matrix transform2 = QuaternionToMatrix(quaternion);
+    // dough::Quaternion dohQuaternion = dough::Quaternion(1,2,3,4);
+    // dohQuaternion.normalise(); //fix that awful s
+    // Matrix transform2 = QuaternionToMatrix(ConvertToRay(dohQuaternion));
     // model.transform = transform2;
     dough::RigidBody body;
     body.setInverseMass(3);
+    body.setOrientation(dough::Quaternion(1,2,3,4));
 
     while(!WindowShouldClose()) {
         // Ray ray = GetScreenToWorldRay(GetMousePosition(), camera);
@@ -71,7 +74,8 @@ int main() {
             ClearBackground(Color{35, 35, 35, 255});
             BeginMode3D(camera);
             DrawGrid(10, 2);
-            DrawSphere(ConvertToRay(body.getPosition()), 1, WHITE);
+            model.transform = QuaternionToMatrix(ConvertToRay(body.getOrientation()));
+            DrawModel(model, ConvertToRay(body.getPosition()), 1, WHITE);
             EndMode3D();
         EndDrawing();
         world.step();

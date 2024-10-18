@@ -44,9 +44,19 @@ namespace dough {
             return position;
         }
 
+        Quaternion getOrientation() {
+            return orientation;
+        }
+
         void setInverseMass(real i) {
             inverseMass = i;
         }
+
+        void setOrientation(Quaternion quaternion) {
+            quaternion.normalise();
+            orientation = quaternion;
+        }
+
     };
 }
 
