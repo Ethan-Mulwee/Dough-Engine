@@ -53,12 +53,6 @@ int main() {
 
     model = LoadModelFromMesh(GenMeshCube(1,1,1));
     Matrix transform = MatrixMultiply(MatrixIdentity(), MatrixRotateX(PI/4));
-    // Quaternion quaternion = Quaternion{1,2,3,4};
-    // quaternion = QuaternionNormalize(quaternion);
-    // dough::Quaternion dohQuaternion = dough::Quaternion(1,2,3,4);
-    // dohQuaternion.normalise(); //fix that awful s
-    // Matrix transform2 = QuaternionToMatrix(ConvertToRay(dohQuaternion));
-    // model.transform = transform2;
     dough::RigidBody body;
     body.setInverseMass(3);
     body.setOrientation(dough::Quaternion(1,2,3,4));
@@ -67,8 +61,8 @@ int main() {
         // Ray ray = GetScreenToWorldRay(GetMousePosition(), camera);
         // RayCollision collision = GetRayCollisionMesh(ray, model.meshes[0], transform2);
         // RayCollision collision2 = GetRayCollisionQuad(ray, Vector3{-1000,0,-1000}, Vector3{-1000,0,1000}, Vector3{1000,0,1000}, Vector3{1000,0,-1000});
-        body.addForce(dough::Vector3(0,-4,4));
-        body.integrate(0.1);
+        body.addForce(dough::Vector3(0,-9.81,0));
+        body.integrate(0.016667);
         UpdateCamera(&camera, CAMERA_PERSPECTIVE);
         BeginDrawing();
             ClearBackground(Color{35, 35, 35, 255});
