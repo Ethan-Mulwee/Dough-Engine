@@ -36,8 +36,6 @@ void CameraControl() {
 
 }
 
-dough::World world = dough::World(((float)1/60), -9.81, 100, 4, 1);
-
 int main() {
     SetTargetFPS(60);
     InitWindow(1280, 720, "Phyiscs Demo");
@@ -72,7 +70,6 @@ int main() {
             DrawModel(model, ConvertToRay(body.getPosition()), 1, WHITE);
             EndMode3D();
         EndDrawing();
-        world.step();
     }
     CloseWindow();
 }
